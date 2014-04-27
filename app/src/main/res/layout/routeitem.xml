@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false">
+
+
+    <TextView
+        android:id="@+id/Index"
+        android:text="1"
+        android:textSize="@dimen/RouteText"
+        style="@style/RouteIndex" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Name"
+        android:text="DerName"
+        android:layout_weight="2"
+        android:textSize="@dimen/RouteText"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#000"
+        android:width="@dimen/RouteName" />
+
+    <TextView
+        android:id="@+id/Difficulty"
+        android:text="9/9+"
+        android:textSize="@dimen/RouteText"
+        style="@style/Difficulty"
+        android:textIsSelectable="false"
+        android:textStyle="normal" />
+</LinearLayout>

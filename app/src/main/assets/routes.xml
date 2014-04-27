@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topo version="1.0">
+    <description>Hier könnte Ihre Werbung stehen</description>
+    <image><name>topo.jpg</name></image>
+
+    <route>
+        <index>1</index>
+        <name>Herr der Ringe</name>
+        <difficulty>7+</difficulty>
+    </route>
+    <route>
+        <index>2</index>
+        <name>Pessimist</name>
+        <difficulty>6+</difficulty>
+    </route>
+    <route>
+        <index>3</index>
+        <name>Zum Basislager</name>
+        <difficulty>3</difficulty>
+    </route>
+    <route>
+        <index>4</index>
+        <name>Max</name>
+        <difficulty>6</difficulty>
+    </route>
+    <route>
+        <index>5</index>
+        <name>Moritz</name>
+        <difficulty>6</difficulty>
+    </route>
+    <route>
+        <index>6</index>
+        <name>Schlafkappe</name>
+        <difficulty>3+</difficulty>
+    </route>
+    <route>
+        <index>7</index>
+        <name>Querenger</name>
+        <difficulty>5</difficulty>
+    </route>
+    <route>
+        <index>8</index>
+        <name>Halbmond</name>
+        <difficulty>4-</difficulty>
+    </route>
+    <route>
+        <index>9</index>
+        <name>ZZ Top</name>
+        <difficulty>7-</difficulty>
+    </route>
+    <route>
+        <index>10</index>
+        <name>Michaels Achter</name>
+        <difficulty>7</difficulty>
+    </route>
+    <route>
+        <index>11</index>
+        <name>Krampfdampf</name>
+        <difficulty>6-</difficulty>
+    </route>
+    <route>
+        <index>12</index>
+        <name>Quertreiber</name>
+        <difficulty>5</difficulty>
+    </route>
+    <route>
+        <index>13</index>
+        <name>Lets Fetz</name>
+        <difficulty>6</difficulty>
+    </route>
+    <route>
+        <index>14</index>
+        <name>Rumpelstilzchen</name>
+        <difficulty>3</difficulty>
+    </route>
+    <route>
+        <index>15</index>
+        <name>Eckbank</name>
+        <difficulty>4</difficulty>
+    </route>
+    <route>
+        <index>16</index>
+        <name>Dritter Boulder</name>
+        <difficulty>7+</difficulty>
+    </route>
+
+</topo>

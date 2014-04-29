@@ -8,10 +8,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="de.mayflower.peertopo.app.FullscreenActivity"
+            android:name="de.mayflower.peertopo.app.ShowTopoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="de.mayflower.peertopo.app.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

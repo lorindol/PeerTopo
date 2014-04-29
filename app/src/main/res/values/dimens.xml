@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><dimen name="RouteText">20dp</dimen><dimen name="RouteName">400dp</dimen></resources>
+<resources>
+
+    <dimen name="RouteText">20dp</dimen>
+    <dimen name="RouteName">400dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

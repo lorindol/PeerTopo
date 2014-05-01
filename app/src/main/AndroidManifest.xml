@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="de.mayflower.peertopo.app.ShowTopoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
         </activity>

@@ -56,7 +56,7 @@ public class ShowTopoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_fullscyreen);
+        setContentView(R.layout.activity_fullscreen);
         createRoutes();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);

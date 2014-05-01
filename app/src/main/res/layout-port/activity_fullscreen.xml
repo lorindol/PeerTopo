@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffee"
@@ -31,6 +32,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:id="@+id/routeList"
             android:padding="5dp" />
+
     </LinearLayout>
 
     <!-- This FrameLayout insets its children based on system windows using

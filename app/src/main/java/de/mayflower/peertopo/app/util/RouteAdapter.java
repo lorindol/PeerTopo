@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class RouteAdapter extends ArrayAdapter<RouteInfo> {
     private final Activity context;
     private final ArrayList<RouteInfo> routes;
-
     public RouteAdapter(Activity context, ArrayList<RouteInfo> routes)
     {
         super(context, R.layout.routeitem, routes);

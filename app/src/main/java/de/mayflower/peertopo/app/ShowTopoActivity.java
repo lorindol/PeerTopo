@@ -1,5 +1,6 @@
 package de.mayflower.peertopo.app;
 
+import de.mayflower.peertopo.app.util.OpenTopo;
 import de.mayflower.peertopo.app.util.SystemUiHider;
 import de.mayflower.peertopo.app.util.Topo;
 
@@ -11,11 +12,19 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ImageView;
 import java.util.ArrayList;
+import android.graphics.drawable.BitmapDrawable;
 import de.mayflower.peertopo.app.util.RouteInfo;
 import de.mayflower.peertopo.app.util.RouteAdapter;
 
 import android.content.res.AssetManager;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+
+import android.util.Log;
+
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -51,16 +60,19 @@ public class ShowTopoActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    protected OpenTopo theTopo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_fullscreen);
+        theTopo = new OpenTopo(this, "demo.topo");
+        theTopo.loadTopo();
         createRoutes();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.topoDiagram);
+        final ImageView topoDiagram = (ImageView) contentView;
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -105,6 +117,9 @@ public class ShowTopoActivity extends Activity {
                     }
                 });
 
+
+        Drawable bild = getTopoImage();
+        topoDiagram.setImageDrawable(bild);
         // Set up the user interaction to manually show or hide the system UI.
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,33 +140,17 @@ public class ShowTopoActivity extends Activity {
     }
 
     private void createRoutes() {
-        AssetManager assets;
-        Topo topo;
         ArrayList<RouteInfo> items;
 
-        assets = getAssets();
         setContentView(R.layout.activity_fullscreen);
         ListView listView = (ListView)findViewById(R.id.routeList);
 
-        /*
-        ArrayList<RouteInfo> items = new ArrayList<RouteInfo>();
-        items.add(new RouteInfo("1", "Schnurzelpurz", "5"));
-        items.add(new RouteInfo("2", "R", "6"));
-        items.add(new RouteInfo("3", "Schmerzlassnach", "7-"));
-        items.add(new RouteInfo("4", "Schnurzelpurz", "5"));
-        items.add(new RouteInfo("5", "Raufrauf", "6"));
-        items.add(new RouteInfo("6", "Schmerzlassnach", "7-"));
-        items.add(new RouteInfo("7", "Schnurzelpurz", "5"));
-        items.add(new RouteInfo("8", "Raufrauf", "6"));
-        items.add(new RouteInfo("9", "Schmerzlassnach", "7-"));
-        items.add(new RouteInfo("10", "Schnurzelpurz", "5"));
-        items.add(new RouteInfo("11", "Raufrauf", "6"));
-        items.add(new RouteInfo("12", "Schmerzlassnach", "7-"));
-        */
+        //Topo oldTopo = new Topo(getAssets());
+        //items = oldTopo.getRoutes();
 
-        topo = new Topo(assets);
-        items = topo.getRoutes();
-
+        items = theTopo.Routes;
+        //Log.i("ShowTopoActivity", "Routes in Activity: "+items.size());
+        //Log.i("ShowTopoActivity", "Items: "+items);
         listView.setAdapter(new RouteAdapter(this, items));
     }
 
@@ -196,5 +195,15 @@ public class ShowTopoActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    private Drawable getTopoImage() {
+        byte[] b;
+
+        //Log.i("ShowTopoActivity", "Topo: "+theTopo);
+        b = theTopo.getTopoEntry(theTopo.imagename);
+        Drawable image = null;
+        image =  new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
+        return image;
     }
 }

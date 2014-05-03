@@ -15,4 +15,11 @@
         android:id="@+id/pressme"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teschd"
+        android:id="@+id/teschd"
+        android:layout_below="@+id/pressme"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

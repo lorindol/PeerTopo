@@ -15,6 +15,13 @@ public class RouteInfo {
         this.Difficulty = Difficulty;
     }
 
+    public String toString() {
+        return Index + ": "+Name+" - "+Difficulty+"\n";
+    }
+    public boolean checkIntegrity() {
+        return (Index != null) && (Name != null) && (Difficulty != null);
+    }
+
     public RouteInfo() {
 
     }

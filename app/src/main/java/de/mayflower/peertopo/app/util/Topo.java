@@ -33,17 +33,12 @@ public class Topo {
     {
         XmlPullParserFactory pullParserFactory;
         XmlPullParser pullParser = null;
+        InputStream asset;
 
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             pullParser = pullParserFactory.newPullParser();
             pullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        }
-
-        InputStream asset;
-        try {
 
             asset = assets.open("routes.xml");
             if (pullParser != null) {
@@ -54,13 +49,11 @@ public class Topo {
                 }
             }
 
-            try {
-                this.parseXML(pullParser);
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            }
+            this.parseXML(pullParser);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 
@@ -79,7 +72,7 @@ public class Topo {
 
             switch (eventType) {
                 case XmlPullParser.START_DOCUMENT:
-                    Routes = new ArrayList();
+                    Routes = new ArrayList<RouteInfo>();
                     break;
                 case XmlPullParser.START_TAG:
                     name = parser.getName();
@@ -109,7 +102,6 @@ public class Topo {
             }
             eventType = parser.next();
         }
-
     }
 
 }

@@ -1,5 +1,7 @@
 package de.mayflower.peertopo.app;
 
+import de.mayflower.peertopo.app.util.OpenTopo;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Toast;
 
 
 
@@ -14,6 +17,8 @@ public class MainActivity extends Activity {
 
     private Button buttonConnect;
     private View.OnClickListener connectTapListener;
+    private Button teschdConnect;
+    private View.OnClickListener teschdTapListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,13 @@ public class MainActivity extends Activity {
             }
         };
         buttonConnect.setOnClickListener(connectTapListener);
+        teschdConnect = (Button) findViewById(R.id.teschd);
+        teschdTapListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                teschd();
+            }
+        };
+        teschdConnect.setOnClickListener(teschdTapListener);
 
     }
 
@@ -53,5 +65,10 @@ public class MainActivity extends Activity {
     private void goShowTopo() {
         Intent i = new Intent(this, ShowTopoActivity.class);
         startActivity(i);
+    }
+    private void teschd() {
+        OpenTopo theTopo = new OpenTopo(this);
+        theTopo.loadTopo();
+        Toast.makeText(this, "Teschded", Toast.LENGTH_LONG).show();
     }
 }

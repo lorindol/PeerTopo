@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffee"
@@ -23,8 +23,10 @@
             android:gravity="top"
             android:layout_gravity="top"
             android:background="#0099cc"
+            />
+        <!--
             android:src="@drawable/graefendorfsuedseite" />
-
+-->
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

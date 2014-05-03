@@ -19,10 +19,10 @@ Every topo at least contains one route.xml which references at least one image f
 A route file might look like
 
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<topo version="1.0">
-    <description>description of the topo</description>
-    <image><name>topo.gif</name></image>
+\<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+\<topo version="1.0">
+    \<description>description of the topo</description>
+    \<image>\<name>topo.gif</name></image>
 
     <route>
         <index>number - reference to the image content</index>
@@ -30,4 +30,4 @@ A route file might look like
         <difficulty>difficulty in UIAA scale</difficulty>
     </route>
     ...
-</topo
+</topo>

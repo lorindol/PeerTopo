@@ -27,14 +27,14 @@ public class MainActivity extends Activity {
         buttonConnect = (Button) findViewById(R.id.pressme);
         connectTapListener = new View.OnClickListener() {
             public void onClick(View v) {
-                goShowTopo();
+                goShowTopo("graefendorf-sued.topo");
             }
         };
         buttonConnect.setOnClickListener(connectTapListener);
         teschdConnect = (Button) findViewById(R.id.teschd);
         teschdTapListener = new View.OnClickListener() {
             public void onClick(View v) {
-                teschd();
+                goShowTopo("graefendorf-west.topo");
             }
         };
         teschdConnect.setOnClickListener(teschdTapListener);
@@ -62,13 +62,9 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goShowTopo() {
+    private void goShowTopo(String filename) {
         Intent i = new Intent(this, ShowTopoActivity.class);
+        i.putExtra("file", filename);
         startActivity(i);
-    }
-    private void teschd() {
-        OpenTopo theTopo = new OpenTopo(this);
-        theTopo.loadTopo();
-        Toast.makeText(this, "Teschded", Toast.LENGTH_LONG).show();
     }
 }

@@ -65,8 +65,13 @@ public class ShowTopoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        String filename = null;
+        if (extras != null) {
+            filename = extras.getString("file");
+        }
 
-        theTopo = new OpenTopo(this, "demo.topo");
+        theTopo = new OpenTopo(this, filename);
         theTopo.loadTopo();
         createRoutes();
 
@@ -203,7 +208,11 @@ public class ShowTopoActivity extends Activity {
         //Log.i("ShowTopoActivity", "Topo: "+theTopo);
         b = theTopo.getTopoEntry(theTopo.imagename);
         Drawable image = null;
-        image =  new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
-        return image;
+        if (b != null) {
+            image =  new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
+            return image;
+        } else {
+            return image;
+        }
     }
 }

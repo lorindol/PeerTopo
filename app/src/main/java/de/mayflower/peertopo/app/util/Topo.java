@@ -1,107 +1,184 @@
 package de.mayflower.peertopo.app.util;
 
+import android.app.Activity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.zip.ZipInputStream;
+import java.io.InputStream;
+import java.io.BufferedInputStream;
+import android.widget.Toast;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Stack;
+
+import android.util.Log;
 
 
-import android.content.res.AssetManager;
 /**
- * Created by martin on 27.04.14.
+ * Created by martin on 02.05.14.
  */
 public class Topo {
-    private ArrayList<RouteInfo> Routes;
+    public Map<String, byte[]> content;
+    public ArrayList<RouteInfo> Routes;
+    public Map<String, String> texts;
+    public String imagename;
+    protected Activity activity;
+    protected String archivename;
 
-
-    private AssetManager assets;
-
-    public Topo (AssetManager assets) {
+    public Topo(Activity a, String toponame) {
+        initialize(a, toponame);
+    }
+    public String toString() {
+        return "content: "+content+"\nRoutes: "+Routes +"\ntexts: "+texts+"\nImage"+
+                imagename+"\nactivity: "+activity+"\nFile: "+archivename;
+    }
+    protected void initialize(Activity a, String toponame) {
+        content = new HashMap<String, byte[]>();
         Routes = null;
-        this.assets = assets;
+        activity = a;
+        archivename = toponame;
+        texts = new HashMap<String, String>();
     }
-    public ArrayList<RouteInfo> getRoutes() {
-        if (Routes == null) {
-            loadRoute();
+    public void loadTopo() {
+        try {
+            InputStream is = activity.getResources().getAssets().open(archivename);
+            ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
+            try {
+                ZipEntry ze;
+                while ((ze = zis.getNextEntry()) != null) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+                    int count;
+                    while ((count = zis.read(buffer)) != -1) {
+                        baos.write(buffer, 0, count);
+                    }
+                    String filename = ze.getName();
+                    byte[] bytes = baos.toByteArray();
+                    content.put(filename, bytes);
+                }
+            } finally {
+                zis.close();
+            }
+        } catch(Exception e) {
+            Toast.makeText(activity, "Fähler: "+e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return Routes;
+        readTextfile();
     }
-    protected void loadRoute()
+
+    public byte[] getTopoEntry(String filename) {
+        return content.get(filename);
+    }
+
+    protected void readTextfile()
     {
         XmlPullParserFactory pullParserFactory;
         XmlPullParser pullParser = null;
-        InputStream asset;
 
         try {
             pullParserFactory = XmlPullParserFactory.newInstance();
             pullParser = pullParserFactory.newPullParser();
             pullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-
-            asset = assets.open("routes.xml");
             if (pullParser != null) {
-                try {
-                    pullParser.setInput(asset, null);
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
+                pullParser.setInput(new ByteArrayInputStream(getTopoEntry("routes.xml")), null);
             }
 
-            this.parseXML(pullParser);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
+            analyzeTextfile(pullParser);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
         }
+        checkTopoIntegrity();
     }
 
-    private void parseXML(XmlPullParser parser) throws XmlPullParserException, IOException
+    protected void analyzeTextfile(XmlPullParser parser) throws XmlPullParserException, IOException
     {
         int eventType = parser.getEventType();
-        RouteInfo currentRoute = null;
+        Stack<String> keller = new Stack<String>();
+        RouteInfo currentRoute = new RouteInfo();
+        String name;
 
-        boolean setName = false;
-        boolean setDifficulty = false;
-        boolean setIndex = false;
-
-        Routes = null;
         while (eventType != XmlPullParser.END_DOCUMENT) {
-            String name;
-
             switch (eventType) {
                 case XmlPullParser.START_DOCUMENT:
-                    Routes = new ArrayList<RouteInfo>();
+                    Routes = new ArrayList();
                     break;
                 case XmlPullParser.START_TAG:
                     name = parser.getName();
-
-                    if (name.equalsIgnoreCase("route")) {
+                    if (name.equalsIgnoreCase("topo")) {
+                        keller.push(name.toLowerCase());
+                    } else {
+                        String top = keller.peek();
+                        keller.push(top + "::" + name.toLowerCase());
+                    }
+                    if (keller.peek().endsWith("route")) {
                         currentRoute = new RouteInfo();
-                    } else if (currentRoute != null) {
-                        if (name.equalsIgnoreCase("name")) {
-                            currentRoute.setName(parser.nextText());
-                            setName = true;
-                        } else if (name.equals("difficulty")) {
-                            currentRoute.setDifficulty(parser.nextText());
-                            setDifficulty = true;
-                        } else if (name.equals("index")) {
-                            currentRoute.setIndex(parser.nextText());
-                            setIndex = true;
-                        }
-                        if (setName && setIndex && setDifficulty) {
-                            Routes.add(currentRoute);
-                            currentRoute = null;
-                            setName = false;
-                            setIndex = false;
-                            setDifficulty = false;
-                        }
+                    }
+                    break;
+                case XmlPullParser.END_TAG:
+                    name = parser.getName();
+                    if (keller.peek().endsWith(name.toLowerCase())) {
+                        keller.pop();
+                    } else {
+                        String message = "Malformed XML: Endtag " + name + " Stacktop: " + keller.peek();
+                        throw new IOException(message);
+                    }
+                    if (name.equalsIgnoreCase("route")) {
+                        Routes.add(currentRoute);
+                    }
+                    break;
+                case XmlPullParser.TEXT:
+                    String text = parser.getText();
+                    String top = keller.peek();
+
+                    if (top.endsWith("topo::image::name")) {
+                        imagename = text;
+                    } else if (top.endsWith("route::index")) {
+                        currentRoute.Index = text;
+                    } else if (top.endsWith("route::name")) {
+                        currentRoute.Name = text;
+                    } else if (top.endsWith("route::difficulty")) {
+                        currentRoute.Difficulty = text;
+                    } else if (top.endsWith("topo::description")) {
+                        texts.put("description", text);
+                    } else {
+                        // TODO: find out how to do this correctly
+                        // ignore text where none is expected, newlines are also yielded
                     }
                     break;
             }
             eventType = parser.next();
         }
-    }
 
+    }
+    protected void checkTopoIntegrity() {
+        ArrayList<String> message = new ArrayList<String>();
+        if (imagename.isEmpty()) {
+            message.add("No imagename found in topo");
+        } else if (content.get(imagename).length  == 0) {
+            message.add("Imagefile not found");
+        }
+        if(Routes.size() == 0) {
+            message.add("No routes found in topo");
+        } else {
+            for(RouteInfo r : Routes) {
+                if(!r.checkIntegrity()) {
+                    message.add("Incomplete routes found in topo");
+                    break;
+                }
+            }
+        }
+        if (!message.isEmpty()) {
+            Toast.makeText(activity, "In "+archivename+": "+message, Toast.LENGTH_LONG).show();
+        }
+    }
 }

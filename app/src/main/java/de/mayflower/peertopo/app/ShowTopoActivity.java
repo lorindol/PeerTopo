@@ -1,8 +1,7 @@
 package de.mayflower.peertopo.app;
 
-import de.mayflower.peertopo.app.util.OpenTopo;
-import de.mayflower.peertopo.app.util.SystemUiHider;
 import de.mayflower.peertopo.app.util.Topo;
+import de.mayflower.peertopo.app.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -18,11 +17,8 @@ import android.graphics.drawable.BitmapDrawable;
 import de.mayflower.peertopo.app.util.RouteInfo;
 import de.mayflower.peertopo.app.util.RouteAdapter;
 
-import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-
-import android.util.Log;
 
 
 /**
@@ -60,7 +56,7 @@ public class ShowTopoActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
-    protected OpenTopo theTopo;
+    protected Topo theTopo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +67,7 @@ public class ShowTopoActivity extends Activity {
             filename = extras.getString("file");
         }
 
-        theTopo = new OpenTopo(this, filename);
+        theTopo = new Topo(this, filename);
         theTopo.loadTopo();
         createRoutes();
 
@@ -150,12 +146,8 @@ public class ShowTopoActivity extends Activity {
         setContentView(R.layout.activity_fullscreen);
         ListView listView = (ListView)findViewById(R.id.routeList);
 
-        //Topo oldTopo = new Topo(getAssets());
-        //items = oldTopo.getRoutes();
 
         items = theTopo.Routes;
-        //Log.i("ShowTopoActivity", "Routes in Activity: "+items.size());
-        //Log.i("ShowTopoActivity", "Items: "+items);
         listView.setAdapter(new RouteAdapter(this, items));
     }
 
@@ -205,7 +197,7 @@ public class ShowTopoActivity extends Activity {
     private Drawable getTopoImage() {
         byte[] b;
 
-        //Log.i("ShowTopoActivity", "Topo: "+theTopo);
+        // TODO: catch error when no image was in file
         b = theTopo.getTopoEntry(theTopo.imagename);
         Drawable image = null;
         if (b != null) {

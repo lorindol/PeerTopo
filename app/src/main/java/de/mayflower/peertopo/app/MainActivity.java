@@ -1,7 +1,5 @@
 package de.mayflower.peertopo.app;
 
-import de.mayflower.peertopo.app.util.OpenTopo;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +7,6 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
-import android.widget.Toast;
-
 
 
 public class MainActivity extends Activity {

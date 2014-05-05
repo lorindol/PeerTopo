@@ -1,5 +1,9 @@
 package de.mayflower.peertopo.app;
 
+import de.mayflower.peertopo.app.util.TopoInfo;
+import de.mayflower.peertopo.app.util.TopoAdapter;
+import de.mayflower.peertopo.app.util.TopoGatherer;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +11,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
+import android.widget.ListView;
+import java.util.ArrayList;
 
+import android.util.Log;
 
 public class MainActivity extends Activity {
 
@@ -20,6 +27,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+        showTopos();
+        } catch (Exception e) {
+            Log.v("MainActivity", "Exception: "+e.getMessage());
+        }
         buttonConnect = (Button) findViewById(R.id.pressme);
         connectTapListener = new View.OnClickListener() {
             public void onClick(View v) {
@@ -34,7 +46,6 @@ public class MainActivity extends Activity {
             }
         };
         teschdConnect.setOnClickListener(teschdTapListener);
-
     }
 
 
@@ -62,5 +73,14 @@ public class MainActivity extends Activity {
         Intent i = new Intent(this, ShowTopoActivity.class);
         i.putExtra("file", filename);
         startActivity(i);
+    }
+
+    private void showTopos() {
+        ArrayList<TopoInfo> items;
+
+        ListView listTopos = (ListView)findViewById(R.id.listTopos);
+
+        items = TopoGatherer.getAllTopos();
+        listTopos.setAdapter(new TopoAdapter(this, items));
     }
 }

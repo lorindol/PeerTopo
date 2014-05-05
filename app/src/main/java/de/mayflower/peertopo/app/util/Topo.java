@@ -48,6 +48,21 @@ public class Topo {
         archivename = toponame;
         texts = new HashMap<String, String>();
     }
+    public TopoInfo scanTopo() {
+        TopoInfo ti = new TopoInfo();
+        if(Routes == null) {
+            // TODO: add flag whether topo has been loaded
+            loadTopo();
+        }
+        ti.name = archivename;
+        // TODO: add topo name to file format
+        ti.description = texts.get("description");
+        if (ti.description == null) {
+            ti.description = archivename;
+        }
+        ti.routecount = Routes.size();
+        return ti;
+    }
     public void loadTopo() {
         try {
             InputStream is = activity.getResources().getAssets().open(archivename);
@@ -72,6 +87,7 @@ public class Topo {
             Toast.makeText(activity, "Fähler: "+e.getMessage(), Toast.LENGTH_LONG).show();
         }
         readTextfile();
+        checkTopoIntegrity();
     }
 
     public byte[] getTopoEntry(String filename) {
@@ -97,7 +113,6 @@ public class Topo {
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
-        checkTopoIntegrity();
     }
 
     protected void analyzeTextfile(XmlPullParser parser) throws XmlPullParserException, IOException

@@ -63,6 +63,7 @@ public class ShowTopoActivity extends Activity {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         String filename = null;
+        // TODO: add error handling when specified topo cant be loaded
         if (extras != null) {
             filename = extras.getString("file");
         }

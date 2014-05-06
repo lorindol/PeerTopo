@@ -121,6 +121,7 @@ public class Topo {
         Stack<String> keller = new Stack<String>();
         RouteInfo currentRoute = new RouteInfo();
         String name;
+        String top;
 
         while (eventType != XmlPullParser.END_DOCUMENT) {
             switch (eventType) {
@@ -132,7 +133,7 @@ public class Topo {
                     if (name.equalsIgnoreCase("topo")) {
                         keller.push(name.toLowerCase());
                     } else {
-                        String top = keller.peek();
+                        top = keller.peek();
                         keller.push(top + "::" + name.toLowerCase());
                     }
                     if (keller.peek().endsWith("route")) {
@@ -141,7 +142,8 @@ public class Topo {
                     break;
                 case XmlPullParser.END_TAG:
                     name = parser.getName();
-                    if (keller.peek().endsWith(name.toLowerCase())) {
+                    top = keller.peek();
+                    if (top.endsWith(name.toLowerCase())) {
                         keller.pop();
                     } else {
                         String message = "Malformed XML: Endtag " + name + " Stacktop: " + keller.peek();
@@ -149,11 +151,15 @@ public class Topo {
                     }
                     if (name.equalsIgnoreCase("route")) {
                         Routes.add(currentRoute);
+                    } else if (top.endsWith("route::name") && name.equalsIgnoreCase("name")) {
+                        currentRoute.Name = (currentRoute.Name!=null) ? currentRoute.Name : "";
+                    } else if (top.endsWith("route::difficulty") && name.equalsIgnoreCase("difficulty")) {
+                        currentRoute.Difficulty = (currentRoute.Difficulty!=null) ? currentRoute.Difficulty : "";
                     }
                     break;
                 case XmlPullParser.TEXT:
                     String text = parser.getText();
-                    String top = keller.peek();
+                    top = keller.peek();
 
                     if (top.endsWith("topo::image::name")) {
                         imagename = text;

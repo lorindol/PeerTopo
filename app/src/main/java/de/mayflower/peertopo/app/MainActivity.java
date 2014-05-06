@@ -10,42 +10,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.widget.AdapterView;
 import android.content.Intent;
 import android.widget.ListView;
 import java.util.ArrayList;
 
+import android.widget.AdapterView.OnItemClickListener;
 import android.util.Log;
 
 public class MainActivity extends Activity {
 
-    private Button buttonConnect;
-    private View.OnClickListener connectTapListener;
-    private Button teschdConnect;
-    private View.OnClickListener teschdTapListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-        showTopos();
+            showTopos();
         } catch (Exception e) {
             Log.v("MainActivity", "Exception: "+e.getMessage());
         }
-        buttonConnect = (Button) findViewById(R.id.pressme);
-        connectTapListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                goShowTopo("graefendorf-sued.topo");
-            }
-        };
-        buttonConnect.setOnClickListener(connectTapListener);
-        teschdConnect = (Button) findViewById(R.id.teschd);
-        teschdTapListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                goShowTopo("graefendorf-west.topo");
-            }
-        };
-        teschdConnect.setOnClickListener(teschdTapListener);
     }
 
 
@@ -69,7 +53,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goShowTopo(String filename) {
+    public void goShowTopo(String filename) {
         Intent i = new Intent(this, ShowTopoActivity.class);
         i.putExtra("file", filename);
         startActivity(i);
@@ -81,6 +65,8 @@ public class MainActivity extends Activity {
         ListView listTopos = (ListView)findViewById(R.id.listTopos);
 
         items = TopoGatherer.getAllTopos();
-        listTopos.setAdapter(new TopoAdapter(this, items));
+        TopoAdapter adapter = new TopoAdapter(this, items);
+        listTopos.setAdapter(adapter);
+        listTopos.setOnItemClickListener(adapter);
     }
 }

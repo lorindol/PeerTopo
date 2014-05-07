@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import java.util.ArrayList;
+import android.util.Log;
 
 /**
  * Created by martin on 05.05.14.
@@ -17,10 +18,11 @@ public class TopoGatherer {
         topos.add(new TopoInfo("graefendorf-sued.topo", "Gräfendorf Südseite", "Südseite des Brückenpfeilers", 16));
         topos.add(new TopoInfo("graefendorf-west.topo", "Gräfendorf Westseite", "Westseite des Brückenpfeilers", 2));
         topos.add(new TopoInfo("graefendorf-nord.topo", "Gräfendorf Nordseite", "Nordseite des Brückenpfeilers", 14));
+        topos.add(new TopoInfo("/mnt/ext_sdcard/PeerTopo/graefendorf-nord.topo", "Gräfendorf Nordseite (ext)", "Nordseite des Brückenpfeilers", 14));
 
         return topos;
     }
-    protected void getToposFromDir(String Dir) throws IOException
+    public static void getToposFromDir(String Dir) throws IOException
     {
         File f = new File(Dir); // current directory
 
@@ -28,6 +30,7 @@ public class TopoGatherer {
             public boolean accept(File dir, String name) {
                 String lowercaseName = name.toLowerCase();
                 if (lowercaseName.endsWith(".topo")) {
+                //if (lowercaseName.endsWith(".txt")) {
                     return true;
                 } else {
                     return false;
@@ -35,9 +38,12 @@ public class TopoGatherer {
             }
         };
 
+        Log.v("TopoGatherer", "Reading dir "+f.getCanonicalFile());
+        //File[] files = f.listFiles();
         File[] files = f.listFiles(textFilter);
         for (File file : files) {
             if (file.isDirectory()) {
+                getToposFromDir(file.getAbsolutePath());
                 System.out.print("directory:");
             } else {
                 System.out.print("     file:");

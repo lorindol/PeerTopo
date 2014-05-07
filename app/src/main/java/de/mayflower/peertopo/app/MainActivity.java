@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 import android.widget.AdapterView.OnItemClickListener;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.Toast;
+import java.io.IOException;
 
 public class MainActivity extends Activity {
 
@@ -30,6 +33,18 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             Log.v("MainActivity", "Exception: "+e.getMessage());
         }
+        Button scan = (Button) findViewById(R.id.buttonScan);
+        scan.setOnClickListener(new View.OnClickListener()  {
+            public void onClick(View v) {
+                try {
+                    TopoGatherer.getToposFromDir("/storage/emulated/0");
+                    TopoGatherer.getToposFromDir("/mnt/ext_sdcard/PeerTopo");
+                } catch (IOException e) {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
 

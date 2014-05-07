@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipInputStream;
 import java.io.InputStream;
 import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -65,7 +66,12 @@ public class Topo {
     }
     public void loadTopo() {
         try {
-            InputStream is = activity.getResources().getAssets().open(archivename);
+            InputStream is;
+            if (archivename.contains("/")) {
+                is = (InputStream) new FileInputStream(archivename);
+            } else {
+                is = activity.getResources().getAssets().open(archivename);
+            }
             ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
             try {
                 ZipEntry ze;

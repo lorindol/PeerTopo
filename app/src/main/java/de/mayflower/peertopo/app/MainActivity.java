@@ -10,14 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
-import android.widget.AdapterView;
 import android.content.Intent;
 import android.widget.ListView;
 import java.util.ArrayList;
 
-import android.widget.AdapterView.OnItemClickListener;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 import java.io.IOException;
 
@@ -37,8 +34,8 @@ public class MainActivity extends Activity {
         scan.setOnClickListener(new View.OnClickListener()  {
             public void onClick(View v) {
                 try {
-                    TopoGatherer.getToposFromDir("/storage/emulated/0");
-                    TopoGatherer.getToposFromDir("/mnt/ext_sdcard/PeerTopo");
+                    TopoGatherer.readToposFromDir("/storage/emulated/0");
+                    TopoGatherer.readToposFromDir("/mnt/ext_sdcard/PeerTopo");
                 } catch (IOException e) {
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -79,6 +76,12 @@ public class MainActivity extends Activity {
 
         ListView listTopos = (ListView)findViewById(R.id.listTopos);
 
+        TopoGatherer.initialize();
+        try {
+            TopoGatherer.readToposFromDir("/mnt/ext_sdcard/PeerTopo");
+        } catch (IOException e) {
+            // if we cant read, that's that.
+        }
         items = TopoGatherer.getAllTopos();
         TopoAdapter adapter = new TopoAdapter(this, items);
         listTopos.setAdapter(adapter);

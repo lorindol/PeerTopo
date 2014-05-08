@@ -34,6 +34,7 @@ public class Topo {
     public String imagename;
     protected Activity activity;
     protected String archivename;
+    protected TopoInfo info = null;
 
     public Topo(Activity a, String toponame) {
         initialize(a, toponame);
@@ -49,26 +50,37 @@ public class Topo {
         archivename = toponame;
         texts = new HashMap<String, String>();
     }
-    public TopoInfo scanTopo() {
-        TopoInfo ti = new TopoInfo();
-        if(Routes == null) {
-            // TODO: add flag whether topo has been loaded
-            loadTopo();
+
+
+    public TopoInfo getInfo() {
+        // TODO: make sure topo has been loaded
+        if (info == null) {
+            info = new TopoInfo();
+            info.routecount = Routes.size();
+            info.name = texts.get("name");
+            info.filename = archivename;
+            info.description = texts.get("description");
+
+            if (info.name == null) {
+                info.name = archivename;
+            }
+            if (info.description == null) {
+                info.description = "";
+            }
+            info.name = info.name + " (ext)";
         }
-        ti.name = archivename;
-        // TODO: add topo name to file format
-        ti.description = texts.get("description");
-        if (ti.description == null) {
-            ti.description = archivename;
-        }
-        ti.routecount = Routes.size();
-        return ti;
+        return info;
     }
     public void loadTopo() {
+        openArchive();
+        readTextfile();
+        checkTopoIntegrity();
+    }
+    protected void openArchive() {
         try {
             InputStream is;
             if (archivename.contains("/")) {
-                is = (InputStream) new FileInputStream(archivename);
+                is = new FileInputStream(archivename);
             } else {
                 is = activity.getResources().getAssets().open(archivename);
             }
@@ -92,8 +104,6 @@ public class Topo {
         } catch(Exception e) {
             Toast.makeText(activity, "Fähler: "+e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        readTextfile();
-        checkTopoIntegrity();
     }
 
     public byte[] getTopoEntry(String filename) {
@@ -175,6 +185,8 @@ public class Topo {
                         currentRoute.Name = text;
                     } else if (top.endsWith("route::difficulty")) {
                         currentRoute.Difficulty = text;
+                    } else if (top.endsWith("topo::name")) {
+                        texts.put("name", text);
                     } else if (top.endsWith("topo::description")) {
                         texts.put("description", text);
                     } else {

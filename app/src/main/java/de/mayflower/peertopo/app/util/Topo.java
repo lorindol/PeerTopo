@@ -63,7 +63,8 @@ public class Topo {
 
             if (info.name == null) {
                 int separator = archivename.lastIndexOf("/")+1;
-                info.name = archivename.substring(separator, archivename.length());
+                int dot = archivename.lastIndexOf(".");
+                info.name = archivename.substring(separator, dot);
             }
             if (info.description == null) {
                 info.description = "";

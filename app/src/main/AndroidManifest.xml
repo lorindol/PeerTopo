@@ -15,12 +15,24 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="de.mayflower.peertopo.app.MainActivity"
+            android:name="MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:icon="@drawable/ic_launcher"
+                android:label="PeerTopo File"
+                android:priority="0">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--<data android:scheme="file" />
+                <data android:host="*" />-->
+                <data android:mimeType="*/*"  android:pathPattern=".*\\.pdf" />
             </intent-filter>
         </activity>
     </application>

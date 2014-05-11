@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.w3schools.com"
+xmlns="http://www.w3schools.com"
+elementFormDefault="qualified">
+
+    <xs:complexType name="routetype">
+        <xs:sequence>
+            <xs:element name="index" type="xs:string"/>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="difficulty" type="xs:string" />
+            <xs:element name="description" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="imagetype">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="topo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" />
+                <xs:element name="texts" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="description" type="xs:string" />
+                            <xs:element name="navigation" type="xs:string" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="hike" type="xs:string" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="approach" type="xs:string" minOccurs="0" maxOccurs="1" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="features" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="height" type="xs:string" minOccurs="0" maxOccurs="1" />
+
+                            <xs:element name="alignment" minOccurs="0" maxOccurs="8">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="N"/>
+                                        <xs:enumeration value="S"/>
+                                        <xs:enumeration value="W"/>
+                                        <xs:enumeration value="E"/>
+                                        <xs:enumeration value="NW"/>
+                                        <xs:enumeration value="SW"/>
+                                        <xs:enumeration value="SE"/>
+                                        <xs:enumeration value="NE"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="sunny" minOccurs="0" maxOccurs="3">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="morning"/>
+                                        <xs:enumeration value="noon"/>
+                                        <xs:enumeration value="afternoon"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="children" minOccurs="0" maxOccurs="1">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="yes"/>
+                                        <xs:enumeration value="no"/>
+                                        <xs:enumeration value="with care"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="inclination" minOccurs="0" maxOccurs="4">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="vertical"/>
+                                        <xs:enumeration value="overhanging"/>
+                                        <xs:enumeration value="roof"/>
+                                        <xs:enumeration value="slanting"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="coordinates" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="lat" type="xs:double" />
+                                        <xs:element name="long" type="xs:double" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="image" type="imagetype" />
+                <xs:element name="route" minOccurs="1" maxOccurs="unbounded" type="routetype" />
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

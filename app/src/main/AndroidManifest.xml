@@ -25,14 +25,14 @@
                 android:label="PeerTopo File"
                 android:priority="0">
                 <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.EDIT" />
-                <action android:name="android.intent.action.PICK" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <!--<data android:scheme="file" />
-                <data android:host="*" />-->
-                <data android:mimeType="*/*"  android:pathPattern=".*\\.pdf" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.topo"
+                    android:scheme="file"
+                    android:host="*"
+                    />
             </intent-filter>
         </activity>
     </application>

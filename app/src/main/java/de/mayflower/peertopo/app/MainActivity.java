@@ -6,6 +6,7 @@ import de.mayflower.peertopo.app.util.TopoGatherer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -77,7 +78,11 @@ public class MainActivity extends Activity {
         ListView listTopos = (ListView)findViewById(R.id.listTopos);
 
         TopoGatherer.initialize();
+        String downloaddir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        String datadir = Environment.getDataDirectory().getAbsolutePath();
         try {
+            TopoGatherer.readToposFromDir(downloaddir);
+            TopoGatherer.readToposFromDir(datadir);
             TopoGatherer.readToposFromDir("/mnt/ext_sdcard/PeerTopo");
         } catch (IOException e) {
             // if we cant read, that's that.

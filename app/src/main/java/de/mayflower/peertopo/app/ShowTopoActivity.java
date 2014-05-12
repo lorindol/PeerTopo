@@ -1,6 +1,6 @@
 package de.mayflower.peertopo.app;
 
-import de.mayflower.peertopo.app.util.Topo;
+import de.mayflower.peertopo.app.util.topo.Topo;
 import de.mayflower.peertopo.app.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.ImageView;
 import java.util.ArrayList;
 import android.graphics.drawable.BitmapDrawable;
-import de.mayflower.peertopo.app.util.RouteInfo;
-import de.mayflower.peertopo.app.util.RouteAdapter;
+import de.mayflower.peertopo.app.util.route.RouteInfo;
+import de.mayflower.peertopo.app.util.route.RouteAdapter;
 
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;

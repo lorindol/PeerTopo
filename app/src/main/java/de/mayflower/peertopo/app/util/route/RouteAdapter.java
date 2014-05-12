@@ -1,4 +1,4 @@
-package de.mayflower.peertopo.app.util;
+package de.mayflower.peertopo.app.util.route;
 
 import de.mayflower.peertopo.app.R;
 
@@ -10,13 +10,6 @@ import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
-
-
-/**
- * @author martin
- *
- * Created by martin on 27.04.14.
- */
 public class RouteAdapter extends ArrayAdapter<RouteInfo> {
     private final Activity context;
     private final ArrayList<RouteInfo> routes;

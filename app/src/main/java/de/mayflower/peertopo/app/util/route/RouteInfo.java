@@ -1,13 +1,13 @@
-package de.mayflower.peertopo.app.util;
+package de.mayflower.peertopo.app.util.route;
 
 /**
  * Created by martin on 27.04.14.
  */
 public class RouteInfo {
-    public String Index;
-    public String Name;
-    public String Difficulty;
-    public String Description;
+    protected String Index;
+    protected String Name;
+    protected String Difficulty;
+    protected String Description;
 
     public RouteInfo(String Index, String Name, String Difficulty) {
         this.Index = Index;

@@ -1,4 +1,4 @@
-package de.mayflower.peertopo.app.util;
+package de.mayflower.peertopo.app.util.topo;
 
 
 import de.mayflower.peertopo.app.MainActivity;
@@ -16,11 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import android.widget.AdapterView.OnItemClickListener;
 
-import android.util.Log;
-
-/**
- * Created by martin on 04.05.14.
- */
 public class TopoAdapter extends ArrayAdapter<TopoInfo> implements OnItemClickListener {
     private final Activity context;
     private final ArrayList<TopoInfo> topos;

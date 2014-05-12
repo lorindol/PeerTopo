@@ -1,4 +1,4 @@
-package de.mayflower.peertopo.app.util;
+package de.mayflower.peertopo.app.util.topo;
 
 import java.io.IOException;
 import java.io.File;
@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.util.Log;
 
-/**
- * Created by martin on 05.05.14.
- */
 public class TopoGatherer {
     public static ArrayList<TopoInfo> topos = null;
 

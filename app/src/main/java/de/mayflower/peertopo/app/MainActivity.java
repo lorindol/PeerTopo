@@ -1,8 +1,8 @@
 package de.mayflower.peertopo.app;
 
-import de.mayflower.peertopo.app.util.TopoInfo;
-import de.mayflower.peertopo.app.util.TopoAdapter;
-import de.mayflower.peertopo.app.util.TopoGatherer;
+import de.mayflower.peertopo.app.util.topo.TopoInfo;
+import de.mayflower.peertopo.app.util.topo.TopoAdapter;
+import de.mayflower.peertopo.app.util.topo.TopoGatherer;
 
 import android.app.Activity;
 import android.os.Bundle;

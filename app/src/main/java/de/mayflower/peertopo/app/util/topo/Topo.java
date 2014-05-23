@@ -70,49 +70,6 @@ public class Topo
         }
         return info;
     }
-    public void loadTopo() {
-        openArchive();
-        readTextfile();
-        checkTopoIntegrity();
-    }
-    protected void openArchive() {
-        try {
-            InputStream is;
-            if (archivename.contains("/")) {
-                is = new FileInputStream(archivename);
-            } else {
-                is = activity.getResources().getAssets().open(archivename);
-            }
-            ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
-            try {
-                ZipEntry ze;
-                while ((ze = zis.getNextEntry()) != null) {
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    byte[] buffer = new byte[1024];
-                    int count;
-                    while ((count = zis.read(buffer)) != -1) {
-                        baos.write(buffer, 0, count);
-                    }
-                    String filename = ze.getName();
-                    byte[] bytes = baos.toByteArray();
-                    content.put(filename, bytes);
-                }
-            } finally {
-                zis.close();
-            }
-        } catch(Exception e) {
-            Toast.makeText(activity, "Fähler: "+e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public byte[] getTopoEntry(String filename) {
-        return content.get(filename);
-    }
-
-    protected void readTextfile()
-    {
-
-    }
 
     protected void analyzeTextfile(byte[] filename) throws XmlPullParserException, IOException
     {

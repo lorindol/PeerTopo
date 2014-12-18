@@ -2,6 +2,7 @@ package de.mayflower.peertopo.app.util.topo;
 
 import android.app.Activity;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.ZipInputStream;
@@ -35,22 +36,61 @@ public class Topo
     protected String archivename;
     protected TopoInfo info = null;
 
-    public Topo(Activity activity, String toponame) {
+    public Topo(Activity activity, String toponame)  throws XmlPullParserException, FileNotFoundException
+    {
         initialize(activity, toponame);
     }
+
     public String toString() {
         return "content: "+content+"\nRoutes: "+Routes +"\ntexts: "+texts+"\nImage"+
                 imagename+"\nactivity: "+activity+"\nFile: "+archivename;
     }
-    protected void initialize(Activity a, String toponame) {
+    protected void initialize(Activity a, String toponame) throws XmlPullParserException, FileNotFoundException
+    {
         content = new HashMap<String, byte[]>();
         Routes = null;
         activity = a;
         archivename = toponame;
         texts = new HashMap<String, String>();
+        openArchive();
+        analyzeTextfile(content.get("routes.xml"));
+        checkTopoIntegrity();
     }
 
-
+    public byte[] getTopoEntry(String name) {
+        return content.get(name);
+    }
+    protected void openArchive() throws XmlPullParserException
+    {
+        try {
+            InputStream is;
+            if (archivename.contains("/")) {
+                is = new FileInputStream(archivename);
+            } else {
+                is = activity.getResources().getAssets().open(archivename);
+            }
+            ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
+            try {
+                ZipEntry ze;
+                while ((ze = zis.getNextEntry()) != null) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+                    int count;
+                    while ((count = zis.read(buffer)) != -1) {
+                        baos.write(buffer, 0, count);
+                    }
+                    String filename = ze.getName();
+                    byte[] bytes = baos.toByteArray();
+                    content.put(filename, bytes);
+                }
+            } finally {
+                zis.close();
+            }
+        } catch(Exception e) {
+            Toast.makeText(activity, "Fähler: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            throw new XmlPullParserException(e.getMessage());
+        }
+    }
     public TopoInfo getInfo() {
         // TODO: make sure topo has been loaded
         if (info == null) {
@@ -71,7 +111,7 @@ public class Topo
         return info;
     }
 
-    protected void analyzeTextfile(byte[] filename) throws XmlPullParserException, IOException
+    protected void analyzeTextfile(byte[] filename) throws XmlPullParserException, FileNotFoundException
     {
         xmlAnalyzer xmlAnalyzer = de.mayflower.peertopo.app.util.file.xmlAnalyzer.getInstance();
         xmlAnalyzer.setInput(filename);

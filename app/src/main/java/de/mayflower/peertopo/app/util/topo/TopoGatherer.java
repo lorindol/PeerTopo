@@ -46,15 +46,20 @@ public class TopoGatherer {
         //File[] files = f.listFiles();
         File[] files = f.listFiles(textFilter);
         if (files != null) {
+            Topo topo = null;
             for (File file : files) {
                 if (file.isDirectory()) {
                     readToposFromDir(file.getAbsolutePath());
                     System.out.print("directory:");
                 } else {
                     System.out.print("     file:");
-                    Topo topo = new Topo((Activity)null, file.getCanonicalPath());
-                    topo.loadTopo();
-                    topos.add(topo.getInfo());
+                    try {
+                        topo = new Topo((Activity) null, file.getCanonicalPath());
+                    } catch (final Exception e) {
+                        continue;
+                    } finally {
+                        topos.add(topo.getInfo());
+                    }
 
                 }
                 System.out.println(file.getCanonicalPath());

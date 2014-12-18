@@ -6,6 +6,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -50,16 +52,12 @@ public class xmlAnalyzer
         }
     }
 
-    public void setInput(byte[] filename)
+    public void setInput(byte[] filename) throws FileNotFoundException, XmlPullParserException
     {
-        try {
-            this.pullParser.setInput(new ByteArrayInputStream(filename), null);
-        } catch (XmlPullParserException e) {
-            e.getMessage();
-        }
+        this.pullParser.setInput(new ByteArrayInputStream(filename), null);
     }
 
-    public void analyzeFile() throws IOException, XmlPullParserException {
+    public void analyzeFile() throws XmlPullParserException {
         try {
             this.eventType = this.pullParser.getEventType();
         } catch (XmlPullParserException e) {
@@ -90,7 +88,8 @@ public class xmlAnalyzer
                         this.cellar.pop();
                     } else {
                         String message = "Malformed XML: Endtag " + name + " Stacktop: " + this.cellar.peek();
-                        throw new IOException(message);
+                        // TODO: Throw something else?
+                        throw new XmlPullParserException(message);
                     }
                     if (name.equalsIgnoreCase("route")) {
                         this.routes.add(this.currentRoute);
@@ -124,7 +123,11 @@ public class xmlAnalyzer
                     }
                     break;
             }
-            eventType = this.pullParser.next();
+            try {
+                eventType = this.pullParser.next();
+            } catch (IOException e) {
+                throw new XmlPullParserException(e.getMessage());
+            }
         }
     }
 

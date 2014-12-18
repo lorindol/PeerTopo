@@ -19,6 +19,7 @@ import de.mayflower.peertopo.app.util.route.RouteAdapter;
 
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
 
 
 /**
@@ -68,8 +69,13 @@ public class ShowTopoActivity extends Activity {
             filename = extras.getString("file");
         }
 
-        theTopo = new Topo(this, filename);
-        theTopo.loadTopo();
+        try {
+            theTopo = new Topo(this, filename);
+        } catch(final Exception e) {
+            Toast.makeText(this, "Problem reading " + filename + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
+            // TODO: go back to main view
+        }
+        //theTopo.loadTopo();
         createRoutes();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);

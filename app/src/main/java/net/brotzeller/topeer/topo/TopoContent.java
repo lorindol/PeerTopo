@@ -26,6 +26,7 @@ public class TopoContent{
 
     protected String archivename; // name of the file archive
     public Map<String, byte[]> content; // raw content of the archive
+    public String imagename;
     protected Activity a;
     public ArrayList<RouteInfo> routes;
     public Map<String, String> texts;
@@ -41,6 +42,16 @@ public class TopoContent{
         openArchive();
         analyzeTextfile(content.get("routes.xml"));
 
+    }
+
+    public byte[] getContent(String idx)
+    {
+        return content.get(idx);
+    }
+
+    public byte[] getImage()
+    {
+        return getContent(imagename);
     }
 
     protected void openArchive() throws TopoException
@@ -86,6 +97,7 @@ public class TopoContent{
             xmlAnalyzer.analyzeFile();
             routes = xmlAnalyzer.getRoutes();
             texts = xmlAnalyzer.getTexts();
+            imagename = xmlAnalyzer.imagename;
         } catch(Exception e) {
             throw new TopoException("Error reading topo "+archivename+" "+e.getClass(), e);
         }

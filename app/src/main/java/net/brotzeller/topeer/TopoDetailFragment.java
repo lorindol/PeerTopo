@@ -2,11 +2,15 @@ package net.brotzeller.topeer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,9 +74,28 @@ public class TopoDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.topo_detail)).setText(mItem.texts.toString() +" hurz!");
+            final View contentView = rootView.findViewById(R.id.topoDiagram);
+            final ImageView topoDiagram = (ImageView) contentView;
+            Drawable bild = getTopoImage();
+            topoDiagram.setImageDrawable(bild);
+
+            //((TextView) rootView.findViewById(R.id.topo_detail)).setText(mItem.texts.toString() +" hurz!");
         }
 
         return rootView;
+    }
+
+    private Drawable getTopoImage() {
+        byte[] b;
+
+        // TODO: catch error when no image was in file
+        b = mItem.getImage();
+        Drawable image = null;
+        if (b != null) {
+            image =  new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
+            return image;
+        } else {
+            return image;
+        }
     }
 }

@@ -10,12 +10,15 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import net.brotzeller.topeer.exception.TopoException;
+import net.brotzeller.topeer.topo.RouteInfo;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;
 
@@ -80,6 +83,14 @@ public class TopoDetailFragment extends Fragment {
             topoDiagram.setImageDrawable(bild);
 
             //((TextView) rootView.findViewById(R.id.topo_detail)).setText(mItem.texts.toString() +" hurz!");
+            final View listView = rootView.findViewById(R.id.routeList);
+            final ListView routeList = (ListView) listView;
+
+            routeList.setAdapter(new ArrayAdapter<RouteInfo>(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                mItem.routes));
         }
 
         return rootView;

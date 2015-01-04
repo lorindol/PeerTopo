@@ -35,7 +35,6 @@ public class TopoContent{
     public String imagename;
     protected Activity a;
     public ArrayList<Routetype> routes;
-    //public ArrayList<RouteInfo> routes;
     public Map<String, String> texts;
 
     public TopoContent (String archivename, Activity a) {
@@ -98,7 +97,6 @@ public class TopoContent{
 
     protected void analyzeTextfile(byte[] filecontent) throws TopoException
     {
-        Log.i("analyzeTextfile", "...starting...");
         try {
 
             XmlTopoReader reader = new XmlTopoReader();

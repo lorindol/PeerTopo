@@ -24,6 +24,8 @@ public class TopoOverview {
         addItem(new TopoInfo("graefendorf-ost.topo", "Gräfendorf Ostseite", "Ostseite des Brückenpfeilers", 3));
         addItem(new TopoInfo("graefendorf-west.topo", "Gräfendorf Westseite", "Westseite des Brückenpfeilers", 2));
         addItem(new TopoInfo("graefendorf-nord.topo", "Gräfendorf Nordseite", "Nordseite des Brückenpfeilers", 14));
+
+        addItem(new TopoInfo("eine.topo", "Debug Topo", "Test", 14));
     }
 
     private static void addItem(TopoInfo item) {

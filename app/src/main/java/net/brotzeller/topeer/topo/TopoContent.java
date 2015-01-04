@@ -6,13 +6,19 @@ import android.util.Log;
 import android.widget.Toast;
 
 import net.brotzeller.topeer.exception.TopoException;
+import net.brotzeller.topeer.xml.*;
 
 
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +34,8 @@ public class TopoContent{
     public Map<String, byte[]> content; // raw content of the archive
     public String imagename;
     protected Activity a;
-    public ArrayList<RouteInfo> routes;
+    public ArrayList<Routetype> routes;
+    //public ArrayList<RouteInfo> routes;
     public Map<String, String> texts;
 
     public TopoContent (String archivename, Activity a) {
@@ -42,6 +49,7 @@ public class TopoContent{
         openArchive();
         analyzeTextfile(content.get("routes.xml"));
 
+        //generateFixture();
     }
 
     public byte[] getContent(String idx)
@@ -88,18 +96,21 @@ public class TopoContent{
         }
     }
 
-    protected void analyzeTextfile(byte[] filename) throws TopoException
+    protected void analyzeTextfile(byte[] filecontent) throws TopoException
     {
-        xmlAnalyzer xmlAnalyzer;
+        Log.i("analyzeTextfile", "...starting...");
         try {
-            xmlAnalyzer = net.brotzeller.topeer.topo.xmlAnalyzer.getInstance();
-            xmlAnalyzer.setInput(filename);
-            xmlAnalyzer.analyzeFile();
-            routes = xmlAnalyzer.getRoutes();
-            texts = xmlAnalyzer.getTexts();
-            imagename = xmlAnalyzer.imagename;
-        } catch(Exception e) {
-            throw new TopoException("Error reading topo "+archivename+" "+e.getClass(), e);
+
+            XmlTopoReader reader = new XmlTopoReader();
+            TopoType topo = reader.parseTopo(filecontent);
+            routes = (ArrayList) topo.routes;
+            texts = reader.getTexts();
+            imagename = topo.image.name;
+            
+        }
+        catch (TopoException e) {
+            Toast.makeText(a, e.getClass() + ": Error Occured " + e.getMessage(), Toast.LENGTH_LONG).show();
+            throw e;
         }
     }
 }

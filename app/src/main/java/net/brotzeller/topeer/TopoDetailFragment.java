@@ -21,6 +21,7 @@ import net.brotzeller.topeer.exception.TopoException;
 import net.brotzeller.topeer.topo.RouteInfo;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;
+import net.brotzeller.topeer.xml.Routetype;
 
 /**
  * A fragment representing a single Topo detail screen.
@@ -62,7 +63,6 @@ public class TopoDetailFragment extends Fragment {
                 mItem = new TopoContent(filename, a);
                 mItem.initialize();
             } catch (TopoException e) {
-                Toast.makeText(a, "Fähler: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(a, TopoListActivity.class);
                 startActivity(i);
             }
@@ -86,7 +86,7 @@ public class TopoDetailFragment extends Fragment {
             final View listView = rootView.findViewById(R.id.routeList);
             final ListView routeList = (ListView) listView;
 
-            routeList.setAdapter(new ArrayAdapter<RouteInfo>(
+            routeList.setAdapter(new ArrayAdapter<Routetype>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
@@ -106,7 +106,7 @@ public class TopoDetailFragment extends Fragment {
             image =  new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
             return image;
         } else {
-            return image;
+            return null;
         }
     }
 }

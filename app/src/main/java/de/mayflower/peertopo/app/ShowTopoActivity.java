@@ -5,6 +5,7 @@ import de.mayflower.peertopo.app.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,12 +72,14 @@ public class ShowTopoActivity extends Activity {
 
         try {
             theTopo = new Topo(this, filename);
+            //theTopo.loadTopo();
+            createRoutes();
         } catch(final Exception e) {
             Toast.makeText(this, "Problem reading " + filename + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
             // TODO: go back to main view
         }
-        //theTopo.loadTopo();
-        createRoutes();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.topoDiagram);

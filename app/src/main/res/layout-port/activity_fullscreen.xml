@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ImageView android:id="@+id/topoDiagram "
+        <ImageView android:id="@+id/topoDiagram"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"

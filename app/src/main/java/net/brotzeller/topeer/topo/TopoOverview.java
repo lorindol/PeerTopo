@@ -55,5 +55,12 @@ public class TopoOverview {
          public String toString() {
              return filename + " (" + routecount + ")";
          }
+
+        public String getName() {
+            return name;
+        }
+        public String getDescription() {
+            return "(" + routecount + ") " + description;
+        }
     }
 }

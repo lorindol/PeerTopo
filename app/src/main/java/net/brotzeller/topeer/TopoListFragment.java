@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import net.brotzeller.topeer.topo.TopoAdapter;
 import net.brotzeller.topeer.topo.TopoOverview;
 
 /**
@@ -71,11 +72,10 @@ public class TopoListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new ArrayAdapter<TopoOverview.TopoInfo>(
+        TopoAdapter naddi = new TopoAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                TopoOverview.ITEMS));
+                TopoOverview.ITEMS);
+        setListAdapter(naddi);
     }
 
     @Override

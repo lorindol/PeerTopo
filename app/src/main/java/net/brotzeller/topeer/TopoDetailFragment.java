@@ -2,6 +2,8 @@ package net.brotzeller.topeer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -108,16 +110,9 @@ public class TopoDetailFragment extends Fragment {
     }
 
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        try {
-            if (routeToast != null) {
-                routeToast.cancel();
-            }
-            Routetype route = mItem.routes.get(position);
-            if (route.description != null) {
-                routeToast.makeText(getActivity(), route.description, Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), "Exception: "+e.getMessage(), Toast.LENGTH_LONG).show();
+        Routetype route = mItem.routes.get(position);
+        if (route.description != null) {
+            showDialog(getActivity(), route.name, route.description);
         }
 
     }
@@ -134,5 +129,23 @@ public class TopoDetailFragment extends Fragment {
         } else {
             return null;
         }
+    }
+    public static final void showDialog( Context context, String title, String body )
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder( context ).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(body);
+        alertDialog.setButton
+        (
+            AlertDialog.BUTTON_POSITIVE, "OK",
+            new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    dialog.dismiss();
+                }
+            }
+        );
+        alertDialog.show();
     }
 }

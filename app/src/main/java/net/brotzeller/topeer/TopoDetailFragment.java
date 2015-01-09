@@ -17,12 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import net.brotzeller.topeer.exception.TopoException;
-import net.brotzeller.topeer.topo.RouteInfo;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;
 import net.brotzeller.topeer.xml.Routetype;
@@ -45,7 +42,6 @@ public class TopoDetailFragment extends Fragment {
      */
     private TopoContent mItem;
 
-    private Toast routeToast = null;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).

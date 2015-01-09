@@ -1,6 +1,7 @@
 package net.brotzeller.topeer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,6 +43,7 @@ public class TopoDetailFragment extends Fragment {
      */
     private TopoContent mItem;
 
+    private Toast routeToast = null;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -86,6 +89,14 @@ public class TopoDetailFragment extends Fragment {
             final View listView = rootView.findViewById(R.id.routeList);
             final ListView routeList = (ListView) listView;
 
+            final AdapterView.OnItemClickListener mOnClickListener
+                    = new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    onListItemClick((ListView)parent, v, position, id);
+                }
+            };
+            routeList.setOnItemClickListener(mOnClickListener);
+
             routeList.setAdapter(new ArrayAdapter<Routetype>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
@@ -94,6 +105,21 @@ public class TopoDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        try {
+            if (routeToast != null) {
+                routeToast.cancel();
+            }
+            Routetype route = mItem.routes.get(position);
+            if (route.description != null) {
+                routeToast.makeText(getActivity(), route.description, Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Exception: "+e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private Drawable getTopoImage() {

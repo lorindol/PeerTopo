@@ -16,7 +16,7 @@
             android:keepScreenOn="true"
             android:gravity="top"
             android:layout_gravity="top"
-            android:background="#0099cc"
+            android:background="@drawable/gradient"
             />
     <ListView
         android:layout_width="fill_parent"

@@ -20,6 +20,7 @@ import android.widget.ListView;
 
 
 import net.brotzeller.topeer.exception.TopoException;
+import net.brotzeller.topeer.topo.RouteAdapter;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;
 import net.brotzeller.topeer.xml.Routetype;
@@ -95,11 +96,10 @@ public class TopoDetailFragment extends Fragment {
             };
             routeList.setOnItemClickListener(mOnClickListener);
 
-            routeList.setAdapter(new ArrayAdapter<Routetype>(
+            routeList.setAdapter(new RouteAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                mItem.routes));
+                mItem.routes
+            ));
         }
 
         return rootView;

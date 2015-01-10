@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+    android:gravity="fill_horizontal"
+    android:stretchColumns="@string/title_topo_detail">
+    <TableRow>
+
+    <TextView
+        android:id="@+id/routeidx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:textSize="@dimen/route_text_size"
+        android:padding="5dp"
+        android:layout_weight="0"
+        android:layout_gravity="left|center_vertical">
+    </TextView>
+    <TextView
+        android:id="@+id/routelabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Routenname"
+        android:textSize="@dimen/route_text_size"
+        android:layout_gravity="right|center_vertical"
+        android:layout_weight="1"
+        android:padding="5dp">
+    </TextView>
+    <TextView
+        android:id="@+id/routedifficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5+"
+        android:textSize="@dimen/route_text_size"
+        android:layout_gravity="right|center_vertical"
+        android:layout_weight="0"
+        android:padding="5dp">
+    </TextView>
+    <TextView
+        android:id="@+id/routemore"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:textSize="@dimen/route_text_size"
+        android:padding="5dp"
+        android:layout_weight="0"
+        android:layout_gravity="right|center_vertical">
+    </TextView>
+    </TableRow>
+</TableLayout>
+

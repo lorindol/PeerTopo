@@ -9,7 +9,7 @@
     android:padding="1dp"
     tools:context=".TopoDetailFragment"
     android:contentDescription="topo image">
- <ImageView android:id="@+id/topoDiagram"
+    <ImageView android:id="@+id/topoDiagram"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -18,16 +18,13 @@
             android:layout_gravity="top"
             android:background="#0099cc"
             />
-        <!--
-            android:src="@drawable/graefendorfsuedseite" />
--->
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal|bottom"
-            android:id="@+id/routeList"
-            android:padding="5dp" />
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/routeList"
+        android:padding="5dp" />
 
 
-    </LinearLayout>
+</LinearLayout>

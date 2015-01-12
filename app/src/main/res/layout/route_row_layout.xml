@@ -8,14 +8,15 @@ android:layout_height="fill_parent"
 
     <TextView
         android:id="@+id/routeidx"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:text="11"
         android:textSize="@dimen/route_text_size"
         android:padding="5dp"
         android:layout_weight="0"
-        android:layout_gravity="left|center_vertical"
-        android:background="@drawable/circle">
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:background="@drawable/circle"
+        android:width="40dp">
     </TextView>
     <TextView
         android:id="@+id/routelabel"

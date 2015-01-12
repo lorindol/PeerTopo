@@ -2,6 +2,7 @@ package net.brotzeller.topeer.topo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +11,9 @@ import java.util.Map;
  */
 public class TopoOverview {
     /**
-     * An array of sample (dummy) items.
+     * Topos found
      */
-    public static List<TopoInfo> ITEMS = new ArrayList<TopoInfo>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static Map<String, TopoInfo> ITEM_MAP = new HashMap<String, TopoInfo>();
+    public static Map<String, TopoInfo> ITEM_MAP = new LinkedHashMap<String, TopoInfo>();
 
     static {
         addItem(new TopoInfo("graefendorf-sued.topo", "Gräfendorf Südseite", "Südseite des Brückenpfeilers", 16));
@@ -28,13 +24,12 @@ public class TopoOverview {
         addItem(new TopoInfo("eine.topo", "Debug Topo", "Test", 14));
     }
 
-    private static void addItem(TopoInfo item) {
-        ITEMS.add(item);
+    public static void addItem(TopoInfo item) {
         ITEM_MAP.put(item.filename, item);
     }
 
     /**
-     * A dummy item representing a piece of content.
+     * Representation of single topo entry
      */
     public static class TopoInfo {
          public String filename;

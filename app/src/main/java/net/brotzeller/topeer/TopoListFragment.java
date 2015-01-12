@@ -11,6 +11,9 @@ import android.widget.ListView;
 import net.brotzeller.topeer.topo.TopoAdapter;
 import net.brotzeller.topeer.topo.TopoOverview;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * A list fragment representing a list of Topos. This fragment
  * also supports tablet devices by allowing list items to be given an
@@ -38,6 +41,8 @@ public class TopoListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    private ArrayList<TopoOverview.TopoInfo> stuff;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -72,9 +77,8 @@ public class TopoListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TopoAdapter naddi = new TopoAdapter(
-                getActivity(),
-                TopoOverview.ITEMS);
+        stuff = new ArrayList(TopoOverview.ITEM_MAP.values());
+        TopoAdapter naddi = new TopoAdapter( getActivity(), stuff );
         setListAdapter(naddi);
     }
 
@@ -115,7 +119,8 @@ public class TopoListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(TopoOverview.ITEMS.get(position).filename);
+
+        mCallbacks.onItemSelected(stuff.get(position).filename);
     }
 
     @Override

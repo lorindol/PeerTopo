@@ -42,6 +42,12 @@ public class TopoContent{
         this.a = a;
     }
 
+    public TopoContent (String archivename) {
+        this.archivename = archivename;
+        // TODO: eliminate Toasting
+        this.a = null;
+    }
+
 
     public void initialize () throws TopoException {
         content = new HashMap<String, byte[]>();
@@ -56,9 +62,15 @@ public class TopoContent{
         return content.get(idx);
     }
 
-    public byte[] getImage()
-    {
-        return getContent(imagename);
+    public byte[] getImage() { return getContent(imagename); }
+
+    public TopoOverview.TopoInfo getInfo() {
+        return new TopoOverview.TopoInfo(
+                archivename,
+                texts.get("name"),
+                texts.get("description"),
+                routes.size()
+        );
     }
 
     protected void openArchive() throws TopoException

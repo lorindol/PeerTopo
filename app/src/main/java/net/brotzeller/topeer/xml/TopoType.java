@@ -16,6 +16,7 @@ public class TopoType {
 
     @Element(required = true)
     public String name;
+    @Element(required = true)
     public TopoType.Texts texts;
     @Element(required = false)
     public TopoType.Features features;
@@ -55,6 +56,7 @@ public class TopoType {
     }
 
 
+    @Root(name="texts", strict=false)
     public static class Texts {
         @Element(required = true)
         public String description;

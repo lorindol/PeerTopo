@@ -3,11 +3,13 @@ package net.brotzeller.topeer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import net.brotzeller.topeer.file.TopoGatherer;
 import net.brotzeller.topeer.topo.TopoAdapter;
 import net.brotzeller.topeer.topo.TopoOverview;
 
@@ -76,6 +78,9 @@ public class TopoListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("foo", "gathering...");
+        TopoGatherer.readTopos(getActivity());
 
         stuff = new ArrayList(TopoOverview.ITEM_MAP.values());
         TopoAdapter naddi = new TopoAdapter( getActivity(), stuff );

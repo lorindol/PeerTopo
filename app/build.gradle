@@ -31,4 +31,5 @@ dependencies {
         exclude module: 'stax-api'
         exclude module: 'xpp3'
     }
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
 }

@@ -3,6 +3,7 @@ package net.brotzeller.topeer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
 
 /**
@@ -21,7 +22,7 @@ import android.app.Activity;
  * {@link TopoListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class TopoListActivity extends Activity
+public class TopoListActivity extends FragmentActivity
         implements TopoListFragment.Callbacks {
 
     /**
@@ -44,7 +45,7 @@ public class TopoListActivity extends Activity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((TopoListFragment) getFragmentManager()
+            ((TopoListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.topo_list))
                     .setActivateOnItemClick(true);
         }
@@ -66,7 +67,7 @@ public class TopoListActivity extends Activity
             arguments.putString(TopoDetailFragment.ARG_ITEM_ID, id);
             TopoDetailFragment fragment = new TopoDetailFragment();
             fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.topo_detail_container, fragment)
                     .commit();
 

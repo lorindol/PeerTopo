@@ -3,5 +3,8 @@
 
     <string name="app_name">Topeer</string>
     <string name="title_topo_detail">Topo Detail</string>
+    <string name="title_activity_topo_paged_detail">TopoPagedDetailActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

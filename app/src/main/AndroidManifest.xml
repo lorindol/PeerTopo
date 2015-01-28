@@ -3,6 +3,7 @@
     package="net.brotzeller.topeer" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -24,6 +25,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TopoListActivity" />
+        </activity>
+        <activity
+            android:name=".TopoPagedDetailActivity"
+            android:label="@string/title_activity_topo_paged_detail" >
         </activity>
     </application>
 

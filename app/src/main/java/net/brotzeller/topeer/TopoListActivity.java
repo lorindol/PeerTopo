@@ -2,7 +2,6 @@ package net.brotzeller.topeer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -10,7 +9,7 @@ import android.support.v4.app.FragmentActivity;
  * An activity representing a list of Topos. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link TopoDetailActivity} representing
+ * lead to a {@link TopoSingleDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
@@ -74,7 +73,7 @@ public class TopoListActivity extends FragmentActivity
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, TopoDetailActivity.class);
+            Intent detailIntent = new Intent(this, TopoPagedDetailActivity.class);
             detailIntent.putExtra(TopoDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }

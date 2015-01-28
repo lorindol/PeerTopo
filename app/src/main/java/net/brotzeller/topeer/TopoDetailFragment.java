@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -28,7 +27,7 @@ import net.brotzeller.topeer.xml.Routetype;
 /**
  * A fragment representing a single Topo detail screen.
  * This fragment is either contained in a {@link TopoListActivity}
- * in two-pane mode (on tablets) or a {@link TopoDetailActivity}
+ * in two-pane mode (on tablets) or a {@link TopoSingleDetailActivity}
  * on handsets.
  */
 public class TopoDetailFragment extends Fragment {

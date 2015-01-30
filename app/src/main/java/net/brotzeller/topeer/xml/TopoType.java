@@ -65,4 +65,26 @@ public class TopoType {
         @Element(required = false)
         public String hike;
     }
+    public enum InclinationEnum {
+        vertical,
+        overhanging,
+        roof,
+        slanting
+    }
+    public enum SunnyEnum {
+        morning,
+        afternoon,
+        allday,
+        shady
+    }
+    public enum AlignmentEnum {
+        N,
+        S,
+        E,
+        W,
+        NE,
+        NW,
+        SE,
+        SW
+    }
 }

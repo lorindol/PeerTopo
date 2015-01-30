@@ -45,9 +45,9 @@ public class TopoPageTextFragment extends Fragment {
     }
 
     private LinkedHashMap<String, String> refurbish(Map<String, String> texts) {
-        String desc = texts.get("description");
-        String navi = texts.get("navigation");
-        String hike = texts.get("hike");
+        String desc = texts.get("description").replaceAll("[\\s\\r\\n]+", " ");
+        String navi = texts.get("navigation").replaceAll("[\\s\\r\\n]+", " ");
+        String hike = texts.get("hike").replaceAll("[\\s\\r\\n]+", " ");
         LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         map.put("Beschreibung", desc);
         map.put("Anfahrt", navi);

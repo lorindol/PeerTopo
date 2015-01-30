@@ -16,7 +16,7 @@
             android:keepScreenOn="true"
             android:gravity="top"
             android:layout_gravity="top"
-            android:background="@drawable/gradient"
+            android:background="@drawable/gradient_topoimage"
             />
     <ListView
         android:layout_width="fill_parent"

@@ -4,7 +4,8 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent"
     android:gravity="fill_horizontal"
     android:stretchColumns="@string/title_topo_detail">
-    <TableRow>
+    <TableRow
+        android:background="@drawable/gradient_route">
 
     <TextView
         android:id="@+id/routeidx"

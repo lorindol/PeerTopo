@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import net.brotzeller.topeer.R;
+
 import java.util.List;
 
 /**
@@ -26,6 +28,8 @@ public class TopoAdapter extends ArrayAdapter<TopoOverview.TopoInfo> {
         LayoutInflater inflater = (LayoutInflater) this.context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(android.R.layout.simple_list_item_activated_2, parent, false);
+        view.setBackgroundResource(R.drawable.gradient_route);
+        //view.setPadding(R.dimen.padding_topos_left, R.dimen.padding_topos_top, R.dimen.padding_topos_right, R.dimen.padding_topos_bottom);
 
         TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         textView1.setText(getItem(position).getName());

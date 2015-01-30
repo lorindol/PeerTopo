@@ -47,7 +47,7 @@ public class XmlTopoReader {
         if (topo.texts != null) {
             map.put("description", topo.texts.description);
             if (topo.texts.hike != null) {
-                map.put("hike", topo.texts.description);
+                map.put("hike", topo.texts.hike);
             }
             if (topo.texts.hike != null) {
                 map.put("navigation", topo.texts.navigation);

@@ -6,8 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import net.brotzeller.topeer.topo.TopoContent;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by martin on 27.01.15.
@@ -24,6 +29,37 @@ public class TopoPageTextFragment extends Fragment {
         if (container == null) {
             return null;
         }
-        return (LinearLayout)inflater.inflate(R.layout.fragment_page_text, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_page_text, container, false);
+
+        final ListView textList = (ListView) rootView.findViewById(R.id.textList);
+
+        HashMap<String, String> t = (HashMap<String, String>) refurbish(topo.texts);
+        HashMapAdapter a = new HashMapAdapter(
+                getActivity(),
+                t
+        );
+        textList.setAdapter(a);
+
+        //return (LinearLayout)inflater.inflate(R.layout.fragment_page_text, container, false);
+        return rootView;
+    }
+
+    private LinkedHashMap<String, String> refurbish(Map<String, String> texts) {
+        String desc = texts.get("description");
+        String navi = texts.get("navigation");
+        String hike = texts.get("hike");
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+        map.put("Beschreibung", desc);
+        map.put("Anfahrt", navi);
+        map.put("Zustieg", hike);
+        // TODO: i18n
+        for (String key: texts.keySet()) {
+            if (key == "name" || key == "description" || key == "navigation" || key == "hike") {
+               // nop
+            } else {
+                map.put(key, map.get(key));
+            }
+        }
+        return map;
     }
 }

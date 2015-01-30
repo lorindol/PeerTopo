@@ -37,6 +37,7 @@ public class TopoPagedDetailActivity extends FragmentActivity {
             // TODO: find out how to use a loader
             String filename = TopoOverview.ITEM_MAP.get(getIntent().getStringExtra(ARG_ITEM_ID)).filename;
             topo = loadTopo(filename);
+            setTitle(topo.getText("name"));
         }
 		this.initialisePaging(topo);
 	}

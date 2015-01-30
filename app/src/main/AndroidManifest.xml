@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TopoDetailActivity"
+            android:name=".TopoSingleDetailActivity"
             android:label="@string/title_topo_detail"
             android:parentActivityName=".TopoListActivity" >
             <meta-data

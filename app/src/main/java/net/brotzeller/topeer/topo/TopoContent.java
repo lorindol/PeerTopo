@@ -73,6 +73,10 @@ public class TopoContent{
         );
     }
 
+    public String getText(String id) {
+        return texts.get(id);
+    }
+
     protected void openArchive() throws TopoException
     {
         try {

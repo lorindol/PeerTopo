@@ -13,7 +13,7 @@ android:layout_height="fill_parent"
     />
     <TextView
         android:id="@+id/title"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Feature: "
         android:textSize="@dimen/feature_text_size"
@@ -23,11 +23,12 @@ android:layout_height="fill_parent"
     </TextView>
     <TextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="description"
         android:layout_gravity="right|center_vertical"
         android:layout_weight="0"
+        android:textSize="@dimen/feature_text_size"
         android:padding="5dp"
     />
     </TableRow>

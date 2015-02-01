@@ -49,13 +49,12 @@ public class TopoPageTextFragment extends Fragment {
         String navi = texts.get("navigation").replaceAll("[\\s\\r\\n]+", " ");
         String hike = texts.get("hike").replaceAll("[\\s\\r\\n]+", " ");
         LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-        map.put("Beschreibung", desc);
-        map.put("Anfahrt", navi);
-        map.put("Zustieg", hike);
-        // TODO: i18n
+        map.put("description", desc);
+        map.put("navigation", navi);
+        map.put("hike", hike);
         for (String key: texts.keySet()) {
             if (key == "name" || key == "description" || key == "navigation" || key == "hike") {
-               // nop
+                continue;
             } else {
                 map.put(key, map.get(key));
             }

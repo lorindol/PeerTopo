@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -41,14 +42,20 @@ public class HashMapAdapter extends BaseAdapter {
 
         LayoutInflater inflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(android.R.layout.simple_list_item_activated_2, parent, false);
+        View view = inflater.inflate(R.layout.texts_row_layout, parent, false);
 
-        TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
-        textView1.setText(key);
+        int tid = context.getResources().getIdentifier(key, "string", context.getPackageName());
+        String title = context.getString(tid);
+        TextView textView1 = (TextView) view.findViewById(R.id.title);
+        textView1.setText(title);
 
-        TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
+        TextView textView2 = (TextView) view.findViewById(R.id.description);
         textView2.setText(Value);
 
+        int icid = context.getResources().getIdentifier("icon_"+key, "string", context.getPackageName());
+        int icon_drawable = context.getResources().getIdentifier(context.getString(icid), "drawable", context.getPackageName());
+        ImageView icon = (ImageView) view.findViewById(R.id.icon);
+        icon.setImageResource(icon_drawable);
         //return convertView;
         return view;
     }

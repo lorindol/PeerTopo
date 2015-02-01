@@ -7,4 +7,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="description">Beschreibung</string>
+    <string name="navigation">Anfahrt</string>
+    <string name="hike">Zustieg</string>
+
+    <string name="icon_description">icon_mountain</string>
+    <string name="icon_navigation">icon_car</string>
+    <string name="icon_hike">icon_hike</string>
+
 </resources>

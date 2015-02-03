@@ -21,25 +21,29 @@ import java.util.Vector;
 
 import static net.brotzeller.topeer.TopoDetailFragment.*;
 
-public class TopoPagedDetailActivity extends FragmentActivity {
+public class TopoPagedDetailActivity extends FragmentActivity implements TopoProvider {
 	/** maintains the pager adapter*/
 	private TopoPageAdapter mPagerAdapter;
+    private TopoContent mTopo;
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
 	 */
+    public TopoContent getTopo() { return mTopo;}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_topo_paged_detail);
+        setContentView(R.layout.activity_topo_paged_detail);
 		//initialsie the pager
         TopoContent topo = null;
         if (null != getIntent().getStringExtra(ARG_ITEM_ID)) {
             // TODO: find out how to use a loader
             String filename = TopoOverview.ITEM_MAP.get(getIntent().getStringExtra(ARG_ITEM_ID)).filename;
             topo = loadTopo(filename);
+            mTopo = topo;
             setTitle(topo.getText("name"));
+            this.initialisePaging(topo);
         }
-		this.initialisePaging(topo);
 	}
 
 	/**
@@ -51,16 +55,13 @@ public class TopoPagedDetailActivity extends FragmentActivity {
         // TODO: add checks if data available, add icons for indicator here.
         TopoPageRouteFragment routes = (TopoPageRouteFragment)
                 Fragment.instantiate(this, TopoPageRouteFragment.class.getName());
-        routes.setTopo(topo);
-        fragments.add((Fragment)routes);
+        fragments.add(routes);
         TopoPageFeatureFragment features = (TopoPageFeatureFragment)
                 Fragment.instantiate(this, TopoPageFeatureFragment.class.getName());
-        features.setTopo(topo);
-        fragments.add((Fragment)features);
+        fragments.add(features);
         TopoPageTextFragment texts = (TopoPageTextFragment)
                 Fragment.instantiate(this, TopoPageTextFragment.class.getName());
-        texts.setTopo(topo);
-        fragments.add((Fragment)texts);
+        fragments.add(texts);
 		this.mPagerAdapter  = new TopoPageAdapter(super.getSupportFragmentManager(), fragments);
 		//
 		ViewPager pager = (ViewPager)super.findViewById(R.id.viewpager);

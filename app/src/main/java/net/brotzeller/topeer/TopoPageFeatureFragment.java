@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class TopoPageFeatureFragment extends Fragment {
     protected TopoContent topo;
 
+    @Deprecated
     public void setTopo(TopoContent newtopo) {
         topo = newtopo;
     }
@@ -29,16 +30,24 @@ public class TopoPageFeatureFragment extends Fragment {
             return null;
         }
         View rootView = inflater.inflate(R.layout.fragment_page_feature, container, false);
-
-        final GridView textList = (GridView) rootView.findViewById(R.id.featureGrid);
-
-        FeatureHashMapAdapter a = new FeatureHashMapAdapter(
-                getActivity(),
-                (HashMap<String, Pair<String, Integer>>) topo.features
-        );
-        textList.setAdapter(a);
-
-        //return (LinearLayout)inflater.inflate(R.layout.fragment_page_feature, container, false);
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        topo = ((TopoProvider) this.getActivity()).getTopo();
+
+        if (topo != null) {
+            final GridView textList = (GridView) this.getActivity().findViewById(R.id.featureGrid);
+
+            FeatureHashMapAdapter a = new FeatureHashMapAdapter(
+                    getActivity(),
+                    (HashMap<String, Pair<String, Integer>>) topo.features
+            );
+            textList.setAdapter(a);
+        }
+
     }
 }

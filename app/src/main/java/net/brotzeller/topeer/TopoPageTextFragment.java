@@ -20,6 +20,7 @@ import java.util.Map;
 public class TopoPageTextFragment extends Fragment {
     protected TopoContent topo;
 
+    @Deprecated
     public void setTopo(TopoContent newtopo) {
         topo = newtopo;
     }
@@ -31,17 +32,24 @@ public class TopoPageTextFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.fragment_page_text, container, false);
 
-        final ListView textList = (ListView) rootView.findViewById(R.id.textList);
-
-        HashMap<String, String> t = (HashMap<String, String>) refurbish(topo.texts);
-        HashMapAdapter a = new HashMapAdapter(
-                getActivity(),
-                t
-        );
-        textList.setAdapter(a);
-
-        //return (LinearLayout)inflater.inflate(R.layout.fragment_page_text, container, false);
         return rootView;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        topo = ((TopoProvider) this.getActivity()).getTopo();
+
+        if (topo != null) {
+            final ListView textList = (ListView) this.getActivity().findViewById(R.id.textList);
+
+            HashMap<String, String> t = (HashMap<String, String>) refurbish(topo.texts);
+            HashMapAdapter a = new HashMapAdapter(
+                    getActivity(),
+                    t
+            );
+            textList.setAdapter(a);
+        }
     }
 
     private LinkedHashMap<String, String> refurbish(Map<String, String> texts) {

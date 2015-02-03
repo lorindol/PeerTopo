@@ -14,21 +14,17 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".TopoSingleDetailActivity"
-            android:label="@string/title_topo_detail"
-            android:parentActivityName=".TopoListActivity" >
+            android:name=".TopoPagedDetailActivity"
+            android:parentActivityName=".TopoListActivity"
+            android:label="@string/title_activity_topo_paged_detail"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TopoListActivity" />
-        </activity>
-        <activity
-            android:name=".TopoPagedDetailActivity"
-            android:label="@string/title_activity_topo_paged_detail" >
         </activity>
     </application>
 

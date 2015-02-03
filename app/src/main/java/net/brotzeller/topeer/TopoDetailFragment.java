@@ -27,7 +27,7 @@ import net.brotzeller.topeer.xml.Routetype;
 /**
  * A fragment representing a single Topo detail screen.
  * This fragment is either contained in a {@link TopoListActivity}
- * in two-pane mode (on tablets) or a {@link TopoSingleDetailActivity}
+ * in two-pane mode (on tablets) or a {@link TopoPagedDetailActivity}
  * on handsets.
  */
 public class TopoDetailFragment extends Fragment {
@@ -111,6 +111,7 @@ public class TopoDetailFragment extends Fragment {
         }
 
     }
+
 
     private Drawable getTopoImage() {
         byte[] b;

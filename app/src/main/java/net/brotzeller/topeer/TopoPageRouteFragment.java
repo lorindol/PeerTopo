@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,9 @@ import net.brotzeller.topeer.xml.Routetype;
 public class TopoPageRouteFragment extends Fragment {
     protected TopoContent topo;
 
+    @Deprecated
     public void setTopo(TopoContent newtopo) {
-        topo = newtopo;
+        //topo = newtopo;
     }
 
     @Override
@@ -37,16 +39,22 @@ public class TopoPageRouteFragment extends Fragment {
             return null;
         }
         View rootView = inflater.inflate(R.layout.fragment_page_route, container, false);
+        return rootView;
+    }
 
-        // Show the dummy content as text in a TextView.
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        topo = ((TopoProvider) this.getActivity()).getTopo();
+
         if (topo != null) {
-            final View contentView = rootView.findViewById(R.id.topoDiagram);
+            final View contentView = (View) this.getActivity().findViewById(R.id.topoDiagram);
             final ImageView topoDiagram = (ImageView) contentView;
             Drawable bild = getTopoImage();
             topoDiagram.setImageDrawable(bild);
 
-            //((TextView) rootView.findViewById(R.id.topo_detail)).setText(mItem.texts.toString() +" hurz!");
-            final View listView = rootView.findViewById(R.id.routeList);
+            final View listView = (View) this.getActivity().findViewById(R.id.routeList);
             final ListView routeList = (ListView) listView;
 
             final AdapterView.OnItemClickListener mOnClickListener
@@ -62,8 +70,6 @@ public class TopoPageRouteFragment extends Fragment {
                     topo.routes
             ));
         }
-
-        return rootView;
     }
 
     public void onListItemClick(ListView listView, View view, int position, long id) {

@@ -16,5 +16,6 @@
         android:padding="10dip"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:alpha="0.5" />
 </FrameLayout>

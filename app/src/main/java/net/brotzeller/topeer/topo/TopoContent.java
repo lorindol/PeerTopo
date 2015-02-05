@@ -2,6 +2,7 @@ package net.brotzeller.topeer.topo;
 
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.support.v4.util.Pair;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class TopoContent{
     protected Activity a;
     public ArrayList<Routetype> routes;
     public Map<String, String> texts;
-    public Map<String, Pair<String, Integer>> features;
+    public TopoType.Features features;
 
     public TopoContent (String archivename, Activity a) {
         this.archivename = archivename;
@@ -110,146 +111,12 @@ public class TopoContent{
             routes = (ArrayList) topo.routes;
             texts = reader.getTexts();
             imagename = topo.image.name;
-            features = collectFeatures(topo.features);
+            features = topo.features;
             
         }
         catch (TopoException e) {
             Toast.makeText(a, e.getClass() + ": Error Occured " + e.getMessage(), Toast.LENGTH_LONG).show();
             throw e;
         }
-    }
-    protected HashMap<String, Pair<String, Integer>> collectFeatures(TopoType.Features features) {
-        HashMap<String, Pair<String, Integer>> feats = new HashMap<String, Pair<String, Integer>>();
-        Integer icon;
-        Pair<String, Integer> content;
-        if (features.height !=  null) {
-            icon = R.drawable.icon_height;
-            content = new Pair<String, Integer>(features.height, icon);
-            feats.put("Wandhöhe", content);
-        }
-        if (features.hikeminutes != null) {
-            icon = R.drawable.icon_hike;
-            content = new Pair<String, Integer>(features.hikeminutes + " Minute(n)", icon);
-            feats.put("Zustieg", content);
-        }
-        if (features.children != null) {
-            if (features.children.equals("yes")) {
-                icon = R.drawable.icon_toddler;
-                content = new Pair<String, Integer>("ja", icon);
-            } else if (features.children.equals("no")) {
-                icon = R.drawable.icon_notoddler;
-                content = new Pair<String, Integer>("nein", icon);
-            } else {
-                icon = R.drawable.icon_notoddler;
-                content = new Pair<String, Integer>("unter Aufsicht", icon);
-            }
-            feats.put("Kinderfreundlich", content);
-        }
-        for(String ali : features.alignment) {
-            String title = "Himmelsrichtung";
-            TopoType.AlignmentEnum iAli = TopoType.AlignmentEnum.valueOf(ali.toUpperCase());
-            switch(iAli) {
-                case E:
-                    icon = R.drawable.icon_compass_e;
-                    content = new Pair<String, Integer>("Ost", icon);
-                    feats.put(title, content);
-                    break;
-                case N:
-                    icon = R.drawable.icon_compass_n;
-                    content = new Pair<String, Integer>("Nord", icon);
-                    feats.put(title, content);
-                    break;
-                case S:
-                    icon = R.drawable.icon_compass_s;
-                    content = new Pair<String, Integer>("Süd", icon);
-                    feats.put(title, content);
-                    break;
-                case W:
-                    icon = R.drawable.icon_compass_w;
-                    content = new Pair<String, Integer>("West", icon);
-                    feats.put(title, content);
-                    break;
-                case NW:
-                    icon = R.drawable.icon_compass_nw;
-                    content = new Pair<String, Integer>("Nordwest", icon);
-                    feats.put(title, content);
-                    break;
-                case SW:
-                    icon = R.drawable.icon_compass_sw;
-                    content = new Pair<String, Integer>("Südwest", icon);
-                    feats.put(title, content);
-                    break;
-                case NE:
-                    icon = R.drawable.icon_compass_ne;
-                    content = new Pair<String, Integer>("Nordost", icon);
-                    feats.put(title, content);
-                    break;
-                case SE:
-                    icon = R.drawable.icon_compass_se;
-                    content = new Pair<String, Integer>("Südost", icon);
-                    feats.put(title, content);
-                    break;
-                default:
-                    break;
-            }
-        }
-        for(String inc : features.inclination) {
-            String title = "Neigung";
-            TopoType.InclinationEnum iInc = TopoType.InclinationEnum.valueOf(inc.toLowerCase());
-            switch(iInc) {
-                case vertical:
-                    icon = R.drawable.icon_vertical;
-                    content = new Pair<String, Integer>("senkrecht", icon);
-                    feats.put(title, content);
-                    break;
-                case slanting:
-                    icon = R.drawable.icon_slanted;
-                    content = new Pair<String, Integer>("abfallend", icon);
-                    feats.put(title, content);
-                    break;
-                case overhanging:
-                    icon = R.drawable.icon_overhanging;
-                    content = new Pair<String, Integer>("überhängend", icon);
-                    feats.put(title, content);
-                    break;
-                case roof:
-                    icon = R.drawable.icon_roof;
-                    content = new Pair<String, Integer>("Dach", icon);
-                    feats.put(title, content);
-                    break;
-                default:
-                    break;
-            }
-        }
-        for(String sun : features.sunny) {
-            String title = "Sonnig";
-            TopoType.SunnyEnum iSun = TopoType.SunnyEnum.valueOf(sun.toLowerCase());
-            switch(iSun) {
-                case morning:
-                    icon = R.drawable.icon_morning;
-                    content = new Pair<String, Integer>("vormittags", icon);
-                    feats.put(title, content);
-                    break;
-                case afternoon:
-                    icon = R.drawable.icon_afternoon;
-                    content = new Pair<String, Integer>("nachmittags", icon);
-                    feats.put(title, content);
-                    break;
-                case allday:
-                    icon = R.drawable.icon_sun;
-                    content = new Pair<String, Integer>("ganztägig", icon);
-                    feats.put(title, content);
-                    break;
-                case shady:
-                    icon = R.drawable.icon_shade;
-                    content = new Pair<String, Integer>("nie", icon);
-                    feats.put(title, content);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return feats;
     }
 }

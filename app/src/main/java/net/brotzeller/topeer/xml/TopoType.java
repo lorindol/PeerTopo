@@ -35,7 +35,7 @@ public class TopoType {
         @Element(required = false)
         public String height;
         @Element(required = false)
-        public BigInteger hikeminutes;
+        public Integer hikeminutes;
         @ElementList(inline=true, entry="alignment", required = false)
         public List<String> alignment;
         @ElementList(required = false, entry="sunny", inline=true)

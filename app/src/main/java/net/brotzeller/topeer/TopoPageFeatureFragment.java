@@ -44,7 +44,7 @@ public class TopoPageFeatureFragment extends Fragment {
 
             FeatureHashMapAdapter a = new FeatureHashMapAdapter(
                     getActivity(),
-                    (HashMap<String, Pair<String, Integer>>) topo.features
+                    topo.features
             );
             textList.setAdapter(a);
         }

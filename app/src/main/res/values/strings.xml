@@ -7,6 +7,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Topo Texts -->
     <string name="description">Beschreibung</string>
     <string name="navigation">Anfahrt</string>
     <string name="hike">Zustieg</string>
@@ -14,5 +15,74 @@
     <string name="icon_description">icon_mountain</string>
     <string name="icon_navigation">icon_car</string>
     <string name="icon_hike">icon_hike</string>
+
+    <!-- Topo Features -->
+    <string name="height">Wandhöhe</string>
+    <string name="hikeminutes">Zustieg</string>
+    <plurals name="hikeminutes_value">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
+    <string name="children">Kinderfreundlich</string>
+    <string name="children_yes">ja</string>
+    <string name="children_no">nein</string>
+    <string name="children_with_care">unter Aufsicht</string>
+    <string name="alignment">Himmelsrichtung</string>
+    <string name="alignment_e">Ost</string>
+    <string name="alignment_n">Nord</string>
+    <string name="alignment_s">Süd</string>
+    <string name="alignment_w">West</string>
+    <string name="alignment_ne">Nordost</string>
+    <string name="alignment_se">Südost</string>
+    <string name="alignment_nw">Nordwest</string>
+    <string name="alignment_sw">Südwest</string>
+    <string name="inclination">Neigung</string>
+    <string name="inclination_vertical">senkrecht</string>
+    <string name="inclination_slanting">abfallend</string>
+    <string name="inclination_overhanging">überhängend</string>
+    <string name="inclination_roof">Dach</string>
+    <string name="sunny">Sonnig</string>
+    <string name="sunny_morning">vormittags</string>
+    <string name="sunny_afternoon">nachmittags</string>
+    <string name="sunny_allday">ganztägig</string>
+    <string name="sunny_shady">nie</string>
+
+
+    <string name="icon_height">icon_height</string>
+    <string name="icon_hikeminutes">icon_hike</string>
+    <string name="icon_children_yes">icon_toddler</string>
+    <string name="icon_children_no">icon_notoddler</string>
+    <string name="icon_children_with_care">icon_notoddler</string>
+    <string name="icon_alignment_e">icon_compass_e</string>
+    <string name="icon_alignment_n">icon_compass_n</string>
+    <string name="icon_alignment_s">icon_compass_s</string>
+    <string name="icon_alignment_w">icon_compass_w</string>
+    <string name="icon_alignment_ne">icon_compass_ne</string>
+    <string name="icon_alignment_se">icon_compass_se</string>
+    <string name="icon_alignment_nw">icon_compass_nw</string>
+    <string name="icon_alignment_sw">icon_compass_sw</string>
+    <string name="icon_inclination_vertical">icon_vertical</string>
+    <string name="icon_inclination_slanting">icon_slanted</string>
+    <string name="icon_inclination_overhanging">icon_overhanging</string>
+    <string name="icon_inclination_roof">icon_roof</string>
+    <string name="icon_sunny_morning">icon_morning</string>
+    <string name="icon_sunny_afternoon">icon_afternoon</string>
+    <string name="icon_sunny_allday">icon_sun</string>
+    <string name="icon_sunny_shady">icon_shade</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

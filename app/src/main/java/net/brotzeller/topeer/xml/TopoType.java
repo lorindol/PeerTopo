@@ -64,6 +64,10 @@ public class TopoType {
         public String navigation;
         @Element(required = false)
         public String hike;
+        @Element(required = false)
+        public String author;
+        @Element(required = false)
+        public String license;
     }
     public enum InclinationEnum {
         vertical,

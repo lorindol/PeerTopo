@@ -1,4 +1,4 @@
-package net.brotzeller.topeer;
+package net.brotzeller.topeer.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.brotzeller.topeer.R;
 import net.brotzeller.topeer.xml.TopoType;
 
 import java.util.ArrayList;
@@ -19,14 +20,15 @@ import java.util.HashMap;
 
 import static net.brotzeller.topeer.R.plurals.hikeminutes_value;
 
-public class FeatureHashMapAdapter extends BaseAdapter {
-    private Context context;
+public class FeaturePageAdapter extends PageAdapter {
+    protected Context context;
     private TopoType.Features mData;
     private ArrayList<String> mKeys;
     private ArrayList<String> mValues;
     private ArrayList<Integer> mIcons;
-    public FeatureHashMapAdapter(Context context, TopoType.Features features){
+    public FeaturePageAdapter(Context context, TopoType.Features features){
         this.context = context;
+        setContext(context);
         collectFeatures(features);
     }
 
@@ -47,9 +49,7 @@ public class FeatureHashMapAdapter extends BaseAdapter {
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) this.context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.feature_grid_cell_layout, parent, false);
+        View view = getPageView(R.layout.feature_grid_cell_layout, parent);
 
         ImageView iconview = (ImageView) view.findViewById(R.id.icon);
         iconview.setImageResource(mIcons.get(pos));
@@ -60,32 +60,9 @@ public class FeatureHashMapAdapter extends BaseAdapter {
         TextView textView2 = (TextView) view.findViewById(R.id.description);
         textView2.setText(mValues.get(pos));
 
-        //return convertView;
         return view;
     }
 
-    protected String lookupString(String identifier) {
-        String description;
-        try {
-            int tid = context.getResources().getIdentifier(identifier, "string", context.getPackageName());
-             description = context.getString(tid);
-        } catch (Exception e) {
-             Log.e("Topeer", "Could not find identifier in strings: " + e.getMessage());
-             description = "########";
-        }
-        return description;
-    }
-    protected int lookupIcon(String identifier) {
-        int icon_drawable;
-        try {
-            int icid = context.getResources().getIdentifier(identifier, "string", context.getPackageName());
-            icon_drawable = context.getResources().getIdentifier(context.getString(icid), "drawable", context.getPackageName());
-        } catch (Exception e) {
-            Log.e("Topeer", "Could not find icon" + identifier + ": " + e.getMessage());
-            icon_drawable = R.drawable.box;
-        }
-        return icon_drawable;
-    }
     protected void collectFeatures(TopoType.Features features) {
         mKeys = new ArrayList<String>();
         mValues = new ArrayList<String>();

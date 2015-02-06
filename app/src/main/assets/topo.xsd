@@ -28,6 +28,8 @@ elementFormDefault="qualified">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="description" type="xs:string" />
+                            <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="license" type="xs:string" minOccurs="0" maxOccurs="1" />
                             <xs:element name="navigation" type="xs:string" minOccurs="0" maxOccurs="1" />
                             <xs:element name="hike" type="xs:string" minOccurs="0" maxOccurs="1" />
                         </xs:sequence>

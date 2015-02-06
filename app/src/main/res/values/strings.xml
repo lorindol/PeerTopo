@@ -11,10 +11,14 @@
     <string name="description">Beschreibung</string>
     <string name="navigation">Anfahrt</string>
     <string name="hike">Zustieg</string>
+    <string name="author">Autor</string>
+    <string name="license">Lizenz</string>
 
     <string name="icon_description">icon_mountain</string>
     <string name="icon_navigation">icon_car</string>
     <string name="icon_hike">icon_hike</string>
+    <string name="icon_author">icon_author</string>
+    <string name="icon_license">icon_copy</string>
 
     <!-- Topo Features -->
     <string name="height">Wandhöhe</string>

@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import net.brotzeller.topeer.adapter.TextPageAdapter;
 import net.brotzeller.topeer.topo.TopoContent;
 
 import java.util.HashMap;
@@ -44,7 +44,7 @@ public class TopoPageTextFragment extends Fragment {
             final ListView textList = (ListView) this.getActivity().findViewById(R.id.textList);
 
             HashMap<String, String> t = (HashMap<String, String>) refurbish(topo.texts);
-            HashMapAdapter a = new HashMapAdapter(
+            TextPageAdapter a = new TextPageAdapter(
                     getActivity(),
                     t
             );
@@ -64,7 +64,7 @@ public class TopoPageTextFragment extends Fragment {
             if (key == "name" || key == "description" || key == "navigation" || key == "hike") {
                 continue;
             } else {
-                map.put(key, map.get(key));
+                map.put(key, texts.get(key));
             }
         }
         return map;

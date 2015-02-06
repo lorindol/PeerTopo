@@ -52,6 +52,12 @@ public class XmlTopoReader {
             if (topo.texts.hike != null) {
                 map.put("navigation", topo.texts.navigation);
             }
+            if (topo.texts.author != null) {
+                map.put("author", topo.texts.author);
+            }
+            if (topo.texts.license != null) {
+                map.put("license", topo.texts.license);
+            }
         }
 
         return map;

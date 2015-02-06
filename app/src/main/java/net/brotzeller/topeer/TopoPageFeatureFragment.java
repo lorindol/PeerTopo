@@ -2,16 +2,13 @@ package net.brotzeller.topeer;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
+import net.brotzeller.topeer.adapter.FeaturePageAdapter;
 import net.brotzeller.topeer.topo.TopoContent;
-
-import java.util.HashMap;
 
 /**
  * Created by martin on 27.01.15.
@@ -42,7 +39,7 @@ public class TopoPageFeatureFragment extends Fragment {
         if (topo != null) {
             final GridView textList = (GridView) this.getActivity().findViewById(R.id.featureGrid);
 
-            FeatureHashMapAdapter a = new FeatureHashMapAdapter(
+            FeaturePageAdapter a = new FeaturePageAdapter(
                     getActivity(),
                     topo.features
             );

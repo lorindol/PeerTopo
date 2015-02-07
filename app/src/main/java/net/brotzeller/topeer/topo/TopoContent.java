@@ -2,11 +2,8 @@ package net.brotzeller.topeer.topo;
 
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.support.v4.util.Pair;
 import android.widget.Toast;
 
-import net.brotzeller.topeer.R;
 import net.brotzeller.topeer.exception.TopoException;
 import net.brotzeller.topeer.xml.*;
 
@@ -18,6 +15,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -60,7 +59,8 @@ public class TopoContent{
                 archivename,
                 texts.get("name"),
                 texts.get("description"),
-                routes.size()
+                routes.size(),
+                getRouteHistBins()
         );
     }
 
@@ -112,11 +112,38 @@ public class TopoContent{
             texts = reader.getTexts();
             imagename = topo.image.name;
             features = topo.features;
-            
+
         }
         catch (TopoException e) {
             Toast.makeText(a, e.getClass() + ": Error Occured " + e.getMessage(), Toast.LENGTH_LONG).show();
             throw e;
         }
+    }
+    public int[] getRouteHistBins() {
+        int[] bins = {0,0,0,0};
+        for(Routetype route : routes) {
+            if(route.difficulty==null) {
+                continue;
+            }
+            Pattern p = Pattern.compile("^(\\d*)");
+            Matcher m = p.matcher(route.difficulty);
+            m.find();
+            int i = Integer.parseInt("0" + m.group(1));
+            switch(i) {
+                case 1:case 2:case 3:case 4:case 5:
+                    bins[0]++;
+                    break;
+                case 6:case 7:
+                    bins[1]++;
+                    break;
+                case 8:case 9:
+                    bins[2]++;
+                    break;
+                case 10:case 11:
+                    bins[3]++;
+                    break;
+            }
+        }
+        return bins;
     }
 }

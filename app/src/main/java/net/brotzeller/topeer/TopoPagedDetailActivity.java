@@ -1,13 +1,14 @@
 package net.brotzeller.topeer;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
@@ -33,6 +34,7 @@ public class TopoPagedDetailActivity extends FragmentActivity implements TopoPro
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.activity_topo_paged_detail);
 		//initialsie the pager
         TopoContent topo = null;
@@ -42,7 +44,11 @@ public class TopoPagedDetailActivity extends FragmentActivity implements TopoPro
             topo = loadTopo(filename);
             mTopo = topo;
             setTitle(topo.getText("name"));
+            setTitleColor(0xFF202020);
             this.initialisePaging(topo);
+
+            Drawable aikon = (Drawable) new Histogram(getResources()).hist(topo.getRouteHistBins());
+            getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, aikon);
         }
 	}
 

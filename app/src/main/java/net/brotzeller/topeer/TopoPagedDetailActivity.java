@@ -13,6 +13,7 @@ import android.view.Window;
 import com.viewpagerindicator.IconPageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
+import net.brotzeller.topeer.adapter.TopoPageAdapter;
 import net.brotzeller.topeer.exception.TopoException;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;

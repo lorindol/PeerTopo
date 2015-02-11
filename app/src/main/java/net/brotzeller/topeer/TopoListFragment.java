@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
 import net.brotzeller.topeer.file.TopoGatherer;
-import net.brotzeller.topeer.topo.TopoAdapter;
+import net.brotzeller.topeer.adapter.TopoAdapter;
 import net.brotzeller.topeer.topo.TopoOverview;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * A list fragment representing a list of Topos. This fragment

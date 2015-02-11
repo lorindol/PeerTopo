@@ -1,10 +1,12 @@
-package net.brotzeller.topeer;
+package net.brotzeller.topeer.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.viewpagerindicator.IconPagerAdapter;
+
+import net.brotzeller.topeer.R;
 
 import java.util.List;
 

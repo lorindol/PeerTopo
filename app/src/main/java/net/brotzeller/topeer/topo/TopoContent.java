@@ -1,7 +1,7 @@
 package net.brotzeller.topeer.topo;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 import net.brotzeller.topeer.exception.TopoException;
@@ -25,12 +25,12 @@ public class TopoContent{
     protected String archivename; // name of the file archive
     public Map<String, byte[]> content; // raw content of the archive
     public String imagename;
-    protected Activity a;
+    protected Context a;
     public ArrayList<Routetype> routes;
     public Map<String, String> texts;
     public TopoType.Features features;
 
-    public TopoContent (String archivename, Activity a) {
+    public TopoContent (String archivename, Context a) {
         this.archivename = archivename;
         this.a = a;
     }
@@ -75,6 +75,9 @@ public class TopoContent{
             if (archivename.contains("/")) {
                 is = new FileInputStream(archivename);
             } else {
+                if (null == a) {
+                    throw new TopoException("No context while opening "+archivename);
+                }
                 is = a.getResources().getAssets().open(archivename);
             }
             ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is));
@@ -97,7 +100,6 @@ public class TopoContent{
                 zis.close();
             }
         } catch(Exception e) {
-            Toast.makeText(a, e.getClass().getName()+" l 67: "+ e.getMessage(), Toast.LENGTH_LONG).show();
             throw new TopoException("Error opening "+archivename, e);
         }
     }
@@ -115,7 +117,7 @@ public class TopoContent{
 
         }
         catch (TopoException e) {
-            Toast.makeText(a, e.getClass() + ": Error Occured " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(a, e.getClass() + ": Error Occured " + archivename + ": " + e.getMessage(), Toast.LENGTH_LONG).show();
             throw e;
         }
     }

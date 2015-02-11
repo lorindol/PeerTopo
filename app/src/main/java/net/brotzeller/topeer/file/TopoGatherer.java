@@ -25,6 +25,7 @@ public class TopoGatherer {
         TopoGatherer.a= a;
 
         try {
+            readTopoAssets();
             //TopoGatherer.readToposFromDir(downloaddir);
             //TopoGatherer.readToposFromDir(datadir);
             Log.i("TopoGatherer", "Reading from external sdcard" );
@@ -38,6 +39,26 @@ public class TopoGatherer {
             Toast.makeText(a, e.toString() + e.getMessage(), Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    public static void readTopoAssets() throws IOException {
+        Log.i("TopoGatherer", "searching assets");
+        String[] files;
+        files = a.getResources().getAssets().list("");
+        for(String name : files) {
+            Log.i("TopoGatherer", "trying asset "+name);
+            int len = name.length();
+            if (name.substring(len-5).equals(".topo")) {
+                try {
+                    addTopoToPool(name);
+                } catch (TopoException e) {
+                    Toast.makeText(TopoGatherer.a, "Topo "+name+ " could not be parsed.", Toast.LENGTH_LONG);
+                    continue;
+                }
+
+            }
+        }
+
     }
     protected static void readToposFromDir(String Dir) throws IOException, TopoException {
         File f = new File(Dir); // current directory
@@ -67,17 +88,21 @@ public class TopoGatherer {
                     Log.i("TopoGatherer", "file: " + file.getCanonicalPath());
                     TopoContent topo = new TopoContent(file.getCanonicalPath());
                     try {
-                        topo.initialize();
+                        addTopoToPool(file.getCanonicalPath());
                     } catch (Exception e) {
                         Toast.makeText(TopoGatherer.a, "Topo "+file.getCanonicalPath()+ " could not be parsed.", Toast.LENGTH_LONG);
                         continue;
                     }
-                    TopoOverview.TopoInfo info = topo.getInfo();
-                    TopoOverview.addItem(info);
-
                 }
             }
         }
+    }
+    protected static void addTopoToPool(String file) throws TopoException {
+
+        TopoContent topo = new TopoContent(file, a);
+        topo.initialize();
+        TopoOverview.TopoInfo info = topo.getInfo();
+        TopoOverview.addItem(info);
     }
 
 }

@@ -19,7 +19,7 @@ import android.widget.ListView;
 
 
 import net.brotzeller.topeer.exception.TopoException;
-import net.brotzeller.topeer.topo.RouteAdapter;
+import net.brotzeller.topeer.adapter.RouteAdapter;
 import net.brotzeller.topeer.topo.TopoContent;
 import net.brotzeller.topeer.topo.TopoOverview;
 import net.brotzeller.topeer.xml.Routetype;

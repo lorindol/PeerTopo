@@ -1,4 +1,4 @@
-package net.brotzeller.topeer.topo;
+package net.brotzeller.topeer.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import net.brotzeller.topeer.Histogram;
 import net.brotzeller.topeer.R;
+import net.brotzeller.topeer.topo.TopoOverview;
 
 import java.util.List;
 

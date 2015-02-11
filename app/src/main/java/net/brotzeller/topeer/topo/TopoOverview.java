@@ -1,5 +1,8 @@
 package net.brotzeller.topeer.topo;
 
+import android.content.Context;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,6 +19,7 @@ public class TopoOverview {
     public static Map<String, TopoInfo> ITEM_MAP = new LinkedHashMap<String, TopoInfo>();
 
     static {
+        /*
         int[] b1 = {6,9,0,0};
         addItem(new TopoInfo("graefendorf-sued.topo", "Gräfendorf Südseite", "Südseite des Brückenpfeilers", 16, b1));
         int[] b2 = {0,1,3,0};
@@ -27,6 +31,7 @@ public class TopoOverview {
 
         int[] b5 = {1,2,3,4};
         addItem(new TopoInfo("eine.topo", "Debug Topo", "Test", 14, b5));
+        */
     }
 
     public static void addItem(TopoInfo item) {

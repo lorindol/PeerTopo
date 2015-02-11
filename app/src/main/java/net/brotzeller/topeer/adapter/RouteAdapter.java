@@ -1,4 +1,4 @@
-package net.brotzeller.topeer.topo;
+package net.brotzeller.topeer.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

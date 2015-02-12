@@ -32,15 +32,16 @@ public class TopoAdapter extends ArrayAdapter<TopoOverview.TopoInfo> {
         LayoutInflater inflater = (LayoutInflater) this.context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.topo_row_layout, parent, false);
-        //View view = inflater.inflate(android.R.layout.simple_list_item_activatend_2, parent, false);
         view.setBackgroundResource(R.drawable.gradient_route);
-        //view.setPadding(R.dimen.padding_topos_left, R.dimen.padding_topos_top, R.dimen.padding_topos_right, R.dimen.padding_topos_bottom);
 
-        TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView1 = (TextView) view.findViewById(R.id.title);
         textView1.setText(getItem(position).getName());
 
-        TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
+        TextView textView2 = (TextView) view.findViewById(R.id.subtitle);
         textView2.setText(getItem(position).getDescription());
+
+        TextView explanation = (TextView) view.findViewById(R.id.explanation);
+        explanation.setText(getItem(position).filename);
 
         BitmapDrawable hist = new Histogram(context.getResources()).hist(getItem(position).getHistbins());
         ImageView moreImage = (ImageView) view.findViewById(R.id.histogram);

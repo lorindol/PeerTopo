@@ -19,7 +19,7 @@
         android:mode="twoLine"
     >
 
-        <TextView android:id="@android:id/text1"
+        <TextView android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="?android:attr/listPreferredItemPaddingStart"
@@ -27,14 +27,24 @@
             android:textAppearance="?android:attr/textAppearanceListItem"
             android:text="Title" />
 
-        <TextView android:id="@android:id/text2"
+        <TextView android:id="@+id/subtitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@android:id/text1"
-            android:layout_alignStart="@android:id/text1"
+            android:layout_below="@id/title"
+            android:layout_alignStart="@id/title"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Description"
             android:singleLine="true" />
+
+        <TextView android:id="@+id/explanation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subtitle"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="8sp"
+            android:text="Description"
+            android:singleLine="true"
+            android:layout_alignLeft="@+id/title" />
 
     </RelativeLayout>
 

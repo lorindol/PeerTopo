@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class TopoOverview {
     /**
      * Representation of single topo entry
      */
-    public static class TopoInfo {
+    public static class TopoInfo implements Comparable{
         public String filename;
         public String name;
         public String description;
@@ -68,5 +69,29 @@ public class TopoOverview {
         }
         public String getDescription() { return "(" + routecount + ") " + description; }
         public int[] getHistbins() { return histbins;}
+        @Override
+        public int compareTo(Object another) {
+            return 0;
+        }
+    }
+    public static class TopoComparator implements Comparator<TopoInfo> {
+        private sortAspect aspect;
+        public TopoComparator(sortAspect aspect) { this.aspect = aspect; }
+        public TopoComparator() { this.aspect = sortAspect.filename; }
+        public int compare(TopoInfo a, TopoInfo b) {
+            switch(aspect) {
+                case filename:
+                    return a.filename.compareTo(b.filename);
+                case name:
+                    return a.name.compareTo(b.name);
+                case routecount:
+                    return a.routecount - b.routecount;
+                default:
+                    return 0;
+            }
+        }
+    }
+    public enum sortAspect {
+        filename, name, routecount
     }
 }

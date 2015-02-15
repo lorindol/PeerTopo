@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import net.brotzeller.topeer.Histogram;
 import net.brotzeller.topeer.R;
+import net.brotzeller.topeer.Registry;
 import net.brotzeller.topeer.topo.TopoOverview;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,9 +29,15 @@ public class TopoAdapter extends ArrayAdapter<TopoOverview.TopoInfo> {
     public TopoAdapter(Context context, List<TopoOverview.TopoInfo> objects) {
         super(context, R.layout.topo_row_layout, objects);
 
-        Collections.sort(objects, new TopoOverview.TopoComparator(TopoOverview.sortAspect.name));
+        sort();
 
         this.context = context;
+    }
+
+    public void sort() {
+        TopoOverview.sortAspect aspect = Registry.getInstance().getTopoSort();
+        Comparator<TopoOverview.TopoInfo> comparator = new TopoOverview.TopoComparator(aspect);
+        super.sort(comparator);
     }
 
     @Override

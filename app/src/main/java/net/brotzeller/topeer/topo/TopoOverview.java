@@ -20,19 +20,6 @@ public class TopoOverview {
     public static Map<String, TopoInfo> ITEM_MAP = new LinkedHashMap<String, TopoInfo>();
 
     static {
-        /*
-        int[] b1 = {6,9,0,0};
-        addItem(new TopoInfo("graefendorf-sued.topo", "Gräfendorf Südseite", "Südseite des Brückenpfeilers", 16, b1));
-        int[] b2 = {0,1,3,0};
-        addItem(new TopoInfo("graefendorf-ost.topo", "Gräfendorf Ostseite", "Ostseite des Brückenpfeilers", 3, b2));
-        int[] b3 = {1,0,1,0};
-        addItem(new TopoInfo("graefendorf-west.topo", "Gräfendorf Westseite", "Westseite des Brückenpfeilers", 2, b3));
-        int[] b4 = {3,4,6,0};
-        addItem(new TopoInfo("graefendorf-nord.topo", "Gräfendorf Nordseite", "Nordseite des Brückenpfeilers", 14, b4));
-
-        int[] b5 = {1,2,3,4};
-        addItem(new TopoInfo("eine.topo", "Debug Topo", "Test", 14, b5));
-        */
     }
 
     public static void addItem(TopoInfo item) {
@@ -77,7 +64,6 @@ public class TopoOverview {
     public static class TopoComparator implements Comparator<TopoInfo> {
         private sortAspect aspect;
         public TopoComparator(sortAspect aspect) { this.aspect = aspect; }
-        public TopoComparator() { this.aspect = sortAspect.filename; }
         public int compare(TopoInfo a, TopoInfo b) {
             switch(aspect) {
                 case filename:
@@ -85,13 +71,17 @@ public class TopoOverview {
                 case name:
                     return a.name.compareTo(b.name);
                 case routecount:
-                    return a.routecount - b.routecount;
+                    return b.routecount - a.routecount;
+                case beginner:
+                    return b.histbins[0] - a.histbins[0];
+                case expert:
+                    return (b.histbins[3] - a.histbins[3])*100 + b.histbins[2] - a.histbins[2];
                 default:
                     return 0;
             }
         }
     }
     public enum sortAspect {
-        filename, name, routecount
+        filename, name, routecount, beginner, expert
     }
 }

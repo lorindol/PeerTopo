@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="net.brotzeller.topeer.TopoListActivity">
+    <item android:id="@+id/settings_sort" android:title="@string/settings_sort"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/settings_sort_name" android:title="@string/settings_sort_name"
+        android:orderInCategory="101" android:showAsAction="never" />
+    <item android:id="@+id/settings_sort_file" android:title="@string/settings_sort_file"
+        android:orderInCategory="102" android:showAsAction="never" />
+    <item android:id="@+id/settings_sort_routecount" android:title="@string/settings_sort_routecount"
+        android:orderInCategory="103" android:showAsAction="never" />
+    <item android:id="@+id/settings_sort_beginner" android:title="@string/settings_sort_beginner"
+        android:orderInCategory="104" android:showAsAction="never" />
+    <item android:id="@+id/settings_sort_expert" android:title="@string/settings_sort_expert"
+        android:orderInCategory="105" android:showAsAction="never" />
+</menu>

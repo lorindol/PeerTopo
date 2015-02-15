@@ -3,13 +3,18 @@ package net.brotzeller.topeer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import net.brotzeller.topeer.adapter.TopoAdapter;
+import net.brotzeller.topeer.topo.TopoOverview;
 
 
 /**
  * An activity representing a list of Topos. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link TopoSingleDetailActivity} representing
+ * lead to a {@link TopoPagedDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
@@ -77,5 +82,50 @@ public class TopoListActivity extends FragmentActivity
             detailIntent.putExtra(TopoDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_topo_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        Registry registry = Registry.getInstance();
+        TopoAdapter topoAdapter = (TopoAdapter) ((TopoListFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.topo_list)).getListAdapter();
+        switch(id) {
+            case R.id.settings_sort_file:
+                registry.setTopoSort(TopoOverview.sortAspect.filename);
+                topoAdapter.sort();
+                break;
+            case R.id.settings_sort_name:
+                registry.setTopoSort(TopoOverview.sortAspect.name);
+                topoAdapter.sort();
+                break;
+            case R.id.settings_sort_routecount:
+                registry.setTopoSort(TopoOverview.sortAspect.routecount);
+                topoAdapter.sort();
+                break;
+            case R.id.settings_sort_beginner:
+                registry.setTopoSort(TopoOverview.sortAspect.beginner);
+                topoAdapter.sort();
+                break;
+            case R.id.settings_sort_expert:
+                registry.setTopoSort(TopoOverview.sortAspect.expert);
+                topoAdapter.sort();
+                break;
+            default:
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

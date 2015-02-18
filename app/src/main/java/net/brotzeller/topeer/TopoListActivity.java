@@ -38,6 +38,7 @@ public class TopoListActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Registry.getInstance().initialize(this);
         setContentView(R.layout.activity_topo_list);
 
         if (findViewById(R.id.topo_detail_container) != null) {

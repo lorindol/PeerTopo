@@ -13,6 +13,7 @@
     <string name="settings_sort_routecount">...Routenanzahl</string>
     <string name="settings_sort_beginner">...Anfängerwände</string>
     <string name="settings_sort_expert">...Expertenwände</string>
+    <string name="settings_sort_default">name</string>
 
     <!-- Topo Texts -->
     <string name="description">Beschreibung</string>

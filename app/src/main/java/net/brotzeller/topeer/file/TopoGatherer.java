@@ -1,8 +1,14 @@
 package net.brotzeller.topeer.file;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import net.brotzeller.topeer.TopoListActivity;
@@ -13,6 +19,8 @@ import net.brotzeller.topeer.topo.TopoOverview;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by martin on 11.01.15.
@@ -22,16 +30,22 @@ public class TopoGatherer {
     public static void readTopos(Context a) {
         //String downloaddir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         //String datadir = Environment.getDataDirectory().getAbsolutePath();
-        TopoGatherer.a= a;
 
+        TopoGatherer.a= a;
         try {
             readTopoAssets();
+            Environment env = new Environment();
+            File[] files = a.getExternalFilesDirs(null);
+            File foo = Environment.getExternalStorageDirectory();
             //TopoGatherer.readToposFromDir(downloaddir);
             //TopoGatherer.readToposFromDir(datadir);
             Log.i("TopoGatherer", "Reading from external sdcard" );
+            /*
             TopoGatherer.readToposFromDir("/mnt/ext_sdcard/PeerTopo");
             TopoGatherer.readToposFromDir("/storage/sdcard1/PeerTopo");
             TopoGatherer.readToposFromDir("/storage/sdcard0/PeerTopo");
+            */
+            getFilesFromMediaStore();
         } catch (IOException e) {
             // if we cant read, that's that.
             Toast.makeText(a, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -105,4 +119,41 @@ public class TopoGatherer {
         TopoOverview.addItem(info);
     }
 
+    protected static void getFilesFromMediaStore() {
+        ContentResolver cr = a.getContentResolver();
+        Uri uri = MediaStore.Files.getContentUri("external");
+
+        // every column, although that is huge waste, you probably need
+        // BaseColumns.DATA (the path) only.
+        String[] projection = { MediaStore.Files.FileColumns.DATA };
+
+        // exclude media files, they would be here also.
+        /*
+        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                + MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
+        String[] selectionArgs = null; // there is no ? in selection so null here
+
+        String sortOrder = null; // unordered
+        Cursor allNonMediaFiles = cr.query(uri, projection, selection, selectionArgs, sortOrder);
+        */
+
+        /*
+        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+            + MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
+            */
+        String selection = MediaStore.Files.FileColumns.DATA + " like '%.topo'";
+        String sortOrder = null; // unordered
+        Cursor allTopoFiles = cr.query(uri, projection, selection, null, sortOrder);
+        allTopoFiles.moveToFirst();
+        int idx = allTopoFiles.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
+        if(0<allTopoFiles.getCount()) do {
+            String filename = allTopoFiles.getString(idx);
+            Log.i("Topeer", "traversing "+filename );
+            try {
+                addTopoToPool(filename);
+            } catch (TopoException e) {
+               // nop
+            }
+        } while(allTopoFiles.moveToNext());
+    }
 }

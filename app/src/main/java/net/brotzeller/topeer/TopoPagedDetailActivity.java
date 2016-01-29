@@ -37,18 +37,23 @@ public class TopoPagedDetailActivity extends FragmentActivity implements TopoPro
 		super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.activity_topo_paged_detail);
-		//initialsie the pager
-        TopoContent topo = null;
+		//initialise the pager
+        TopoContent topo;
+        String filename;
         if (null != getIntent().getStringExtra(ARG_ITEM_ID)) {
             // TODO: find out how to use a loader
-            String filename = TopoOverview.ITEM_MAP.get(getIntent().getStringExtra(ARG_ITEM_ID)).filename;
+            filename = TopoOverview.ITEM_MAP.get(getIntent().getStringExtra(ARG_ITEM_ID)).filename;
+        } else {
+            filename = getIntent().getData().getPath();
+        }
+        if (null != filename) {
             topo = loadTopo(filename);
             mTopo = topo;
             setTitle(topo.getText("name"));
             setTitleColor(0xFF202020);
             this.initialisePaging(topo);
 
-            Drawable aikon = (Drawable) new Histogram(getResources()).hist(topo.getRouteHistBins());
+            Drawable aikon = new Histogram(getResources()).hist(topo.getRouteHistBins());
             getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, aikon);
         }
 	}

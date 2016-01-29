@@ -21,11 +21,21 @@
         <activity
             android:name=".TopoPagedDetailActivity"
             android:parentActivityName=".TopoListActivity"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/title_activity_topo_paged_detail"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TopoListActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.topo" />
+                <data android:host="*" />
+            </intent-filter>
         </activity>
     </application>
 

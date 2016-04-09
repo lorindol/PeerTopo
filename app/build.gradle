@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "net.brotzeller.topeer"
         minSdkVersion 18
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -32,4 +32,10 @@ dependencies {
         exclude module: 'xpp3'
     }
     compile 'com.viewpagerindicator:library:2.4.1@aar'
+    testCompile 'junit:junit:4.12'          // für Local-Tests
+    //androidTestCompile 'junit:junit:4.12'   // Für Instrumented tests
+    //androidTestCompile 'com.android.support.test:runner:0.4' // Für Instrumented tests
+    //androidTestCompile 'com.android.support.test:rules:0.4'  // Für Instrumented tests
+    // androidTestCompile 'com.android.support:support-annotations:21.1.1' // gegen Versionskonflikte
+    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1' // für UI testing
 }

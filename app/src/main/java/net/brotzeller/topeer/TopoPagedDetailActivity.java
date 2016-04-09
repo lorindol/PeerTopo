@@ -21,6 +21,9 @@ import net.brotzeller.topeer.topo.TopoOverview;
 import java.util.List;
 import java.util.Vector;
 
+import android.widget.Toast;
+
+
 import static net.brotzeller.topeer.TopoDetailFragment.*;
 
 public class TopoPagedDetailActivity extends FragmentActivity implements TopoProvider {
@@ -55,6 +58,9 @@ public class TopoPagedDetailActivity extends FragmentActivity implements TopoPro
 
             Drawable aikon = new Histogram(getResources()).hist(topo.getRouteHistBins());
             getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, aikon);
+        } else {
+            Toast.makeText(this, "Intent has no dings.", Toast.LENGTH_LONG).show();
+
         }
 	}
 

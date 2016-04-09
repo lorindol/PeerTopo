@@ -66,14 +66,15 @@ public class TopoGatherer {
                 try {
                     addTopoToPool(name);
                 } catch (TopoException e) {
-                    Toast.makeText(TopoGatherer.a, "Topo "+name+ " could not be parsed.", Toast.LENGTH_LONG);
-                    continue;
+                    Toast.makeText(TopoGatherer.a, "Topo "+name+ " could not be parsed.", Toast.LENGTH_LONG).show();
+                    //continue;
                 }
 
             }
         }
 
     }
+    /*
     protected static void readToposFromDir(String Dir) throws IOException, TopoException {
         File f = new File(Dir); // current directory
 
@@ -105,12 +106,13 @@ public class TopoGatherer {
                         addTopoToPool(file.getCanonicalPath());
                     } catch (Exception e) {
                         Toast.makeText(TopoGatherer.a, "Topo "+file.getCanonicalPath()+ " could not be parsed.", Toast.LENGTH_LONG);
-                        continue;
+                        // continue;
                     }
                 }
             }
         }
     }
+    */
     protected static void addTopoToPool(String file) throws TopoException {
 
         TopoContent topo = new TopoContent(file, a);
@@ -123,27 +125,11 @@ public class TopoGatherer {
         ContentResolver cr = a.getContentResolver();
         Uri uri = MediaStore.Files.getContentUri("external");
 
-        // every column, although that is huge waste, you probably need
-        // BaseColumns.DATA (the path) only.
         String[] projection = { MediaStore.Files.FileColumns.DATA };
 
         // exclude media files, they would be here also.
-        /*
-        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-                + MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
-        String[] selectionArgs = null; // there is no ? in selection so null here
-
-        String sortOrder = null; // unordered
-        Cursor allNonMediaFiles = cr.query(uri, projection, selection, selectionArgs, sortOrder);
-        */
-
-        /*
-        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-            + MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
-            */
         String selection = MediaStore.Files.FileColumns.DATA + " like '%.topo'";
-        String sortOrder = null; // unordered
-        Cursor allTopoFiles = cr.query(uri, projection, selection, null, sortOrder);
+        Cursor allTopoFiles = cr.query(uri, projection, selection, null, null);
         allTopoFiles.moveToFirst();
         int idx = allTopoFiles.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
         if(0<allTopoFiles.getCount()) do {
@@ -155,5 +141,6 @@ public class TopoGatherer {
                // nop
             }
         } while(allTopoFiles.moveToNext());
+        allTopoFiles.close();
     }
 }

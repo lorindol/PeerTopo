@@ -22,9 +22,7 @@ public class RouteInfo {
         return (Index != null) && (Name != null) && (Difficulty != null);
     }
 
-    public RouteInfo() {
-
-    }
+    public RouteInfo() {}
 
     public void setName(String name) {
         Name = name;
